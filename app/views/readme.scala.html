@@ -1,0 +1,41 @@
+@(readme: String = "", contentTable: Seq[String] =  Seq[String]())
+
+<head>
+    <title>Table of content for github's readme.md file</title>
+    <meta name="description" content=">Generates table of contents for markdown files">
+    <meta name="keywords" content="github,table of content,readme.md">
+    <meta name="robots" content="index, follow">
+</head>
+
+<body>
+<h1>Table Of Content Generator</h1>
+
+<label>Inspired by <a href="https://github.com/isaacs/github/issues/215">the lack of table of content generator on github</a></label>
+<br />
+<label>I just wanted a solution where nothing had to be installed, so I created this site.</label>
+<br>
+<label>Nothing is perfect, you can <a href="https://github.com/raychenon/auto-toc/issues">report an issue.</a></label>
+<br />
+<br />
+<form action="/" method="POST">
+    <label for="readme-txt">Copy paste your README.md below</label>
+    <div class="form-group">
+        <textarea id="readme-txt" name="description" type="text" class="form-control" placeholder="copy paste your README.md"
+                  style="width:80%;height:200px;">@readme</textarea>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" />
+    </div>
+</form>
+
+<!--http://stackoverflow.com/questions/14154671/is-it-possible-to-prettify-scala-templates-using-play-framework-2-->
+@if(!contentTable.isEmpty){
+    <h3>Table of content generated <a href=".">using this app</a></h3>
+}
+<ul>
+    @for(line <- contentTable) {
+    <li>@Html(line)</li>
+    }
+</ul>
+
+</body>
