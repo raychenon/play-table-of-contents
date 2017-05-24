@@ -37,7 +37,7 @@ object TableOfContentHelper {
       s"""${repeatChar(SPACE, line.indentation - min)} ${line.title}""")
   }
 
-  private def repeatChar(c: String, n: Int): String = (for (i <- 1 to n) yield c).mkString
+  private def repeatChar(char: String, n: Int): String = (for (i <- 1 to n) yield char).mkString
 
   private def printTableOfContent(list: Seq[LineIndex]): String = {
     val seq = generateTableOfContent(list)
