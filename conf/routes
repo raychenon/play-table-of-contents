@@ -1,13 +1,4 @@
-GET        /                       controllers.HomeController.index
-
-->         /v1/posts               v1.post.PostRouter
-
-
 GET     /                           controllers.TableOfContentController.readme
 POST    /                           controllers.TableOfContentController.redirectContentTable
 
 GET     /readme                     controllers.TableOfContentController.readme
-
-# Map static resources from the /public folder to the /assets URL path
-GET        /assets/*file        controllers.Assets.at(path="/public", file)
-
