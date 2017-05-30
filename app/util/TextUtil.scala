@@ -2,8 +2,7 @@ package util
 
 //https://gist.github.com/sam/5213151
 
-object Slug {
-  def apply(input:String) = slugify(input)
+object TextUtil {
 
   def slugify(input: String): String = {
     import java.text.Normalizer

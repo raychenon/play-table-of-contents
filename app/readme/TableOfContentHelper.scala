@@ -1,6 +1,6 @@
 package readme
 
-import util.Slug
+import util.TextUtil
 
 object TableOfContentHelper {
 
@@ -25,8 +25,8 @@ object TableOfContentHelper {
 
   private def getLindex(line: String): LineIndex = {
     val count = line.count(_ == '#')
-    val text = Slug(line.substring(count, line.length).trim)
-    val title = s"- [$text](#${text.toLowerCase.split(' ').mkString("-")})"
+    val text = line.substring(count, line.length).trim
+    val title = s"- [$text](#${TextUtil.slugify(text)})"
     LineIndex(count, title)
   }
 
