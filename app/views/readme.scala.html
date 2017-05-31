@@ -9,7 +9,7 @@
     <meta name="keywords" content="github,table of content,readme.md">
     <meta name="robots" content="index, follow">
     <style>
-    ul.toc {
+    ul {
         list-style-type: none;
         padding: 0;
         margin: 0;
@@ -42,7 +42,7 @@
 @if(!contentTable.isEmpty){
     <h3>[Table of contents generated using this app]<a href=".">(https://tableofcontents.herokuapp.com)</a></h3>
 }
-<ul class="toc">
+<ul>
     @for(line <- contentTable) {
     <li>@Html(line)</li>
     }
