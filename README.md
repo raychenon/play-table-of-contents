@@ -1,11 +1,13 @@
-**Table of Contents**
-- [play-toc](#play-toc)
-- [online generation](#online-generation)
+**[Table of contents generated using this app](https://tableofcontents.herokuapp.com)**
 
-# play-toc
-Easy Table of Contents  auto generation for GitHub README.md
+- [Introduction](#introduction)
+- [Online Generation](#online-generation)
 
-# online generation
+# Introduction
+There are plenty of markdown table of contents generators, but the installation of the dependencies
+ is required. Lot of overhead for an occasional activity, that's how the idea of this web app was born. 
+ 
+# Online Generation
 You don't need to install anything.
 <br>1 Go to https://tableofcontents.herokuapp.com
 <br>2 Copy paste your markdown content and submit
