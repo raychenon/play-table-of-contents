@@ -14,6 +14,9 @@
         padding: 0;
         margin: 0;
     }
+    button {
+        font-size: 14px;
+    }
     </style>
 </head>
 
@@ -27,9 +30,10 @@
 <label>Nothing is perfect, you can <a href="https://github.com/raychenon/play-table-of-contents/issues">report an issue.</a></label>
 <br />
 <br />
-<label for="github-url">Github link</label>
-<input id="github-url" name="description" type="text" class="form-control" placeholder="Enter a github link . ex : https://github.com/raychenon/play-table-of-contents"
+<button type="button"><b>Retrieve from your github</b></button>
+<input id="github-url" name="description" font-size="18px" type="text" class="form-control" placeholder="Enter a github link . ex : https://github.com/raychenon/play-table-of-contents"
        style="width:60%;height:10px;"/>
+
 <form action="/" method="POST">
     <div class="form-group">
         <label for="readme-txt">Content of your README.md below</label>
