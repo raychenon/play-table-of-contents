@@ -8,6 +8,11 @@ import play.api.mvc.{Action, Controller}
 import play.api.data.Forms._
 import readme.{ReadmeForm, TableOfContentHelper}
 
+import scala.concurrent.duration._
+import scala.concurrent.{Await, Future}
+import scala.util.{Failure, Success}
+import scala.concurrent.ExecutionContext.Implicits.global
+
 class TableOfContentController  extends Controller{
 
   val logger = Logger(this.getClass)
@@ -37,20 +42,36 @@ class TableOfContentController  extends Controller{
   /**
     * the url must be in the form https://github.com/{username}/{project}
     * if the text starts with a github link, return the content of README.md file
-    * @param description
+    *
+    * @param url
     * @return either the input or the content of github's README
     */
-  def readGithubLink(description: String): String = {
-    if (description.startsWith("https://github.com")){
-      val githubUrl = new URL(description)
-      val path = githubUrl.getPath
-      val readmeUrl = new URL("https://raw.githubusercontent.com" + path + "/master/README.md")
+  def readGithubLink(url: String): String = {
+    if (url.startsWith("https://github.com")) {
       // @todo must be asynchronous
-      val result = scala.io.Source.fromURL(readmeUrl).mkString
-      result
+      val maybeContent = getUrlContent(getGithubReadmeUrl(url))
+      Await.result(maybeContent, 1.second)
+
+//      maybeContent onComplete {
+//        case Success(content) => content
+//        case Failure(t) =>
+//          logger.error("failure in readGithubLink ", t)
+//          ""
+//      }
     }else{
-      description
+      ""
     }
+  }
+
+  def getGithubReadmeUrl(url: String): String = {
+    val githubUrl = new URL(url)
+    val path = githubUrl.getPath
+    "https://raw.githubusercontent.com" + path + "/master/README.md"
+  }
+
+  def getUrlContent(readmeUrl: String): Future[String] = Future {
+    val f = scala.io.Source.fromURL(readmeUrl)
+    try f.mkString finally f.close()
   }
 
 }
