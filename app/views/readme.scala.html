@@ -31,22 +31,21 @@
 <br />
 <br />
 
-<form action="/" method="POST">
-    <div class="form-group">
-        <textarea id="github-url" name="github_url" font-size="18px" type="text" class="form-control"
-               placeholder="Enter a github link . ex : https://github.com/raychenon/play-table-of-contents"
-               style="width:65%;height:10px;">@githubUrl</textarea>
+<form action="/" method="POST" id="form-group">
 
-        <br>
-        <label for="readme-txt">Content of your README.md below</label>
-        <br>
-        <textarea id="readme-txt" name="description" type="text" class="form-control" placeholder="copy paste your README.md"
-                  style="width:65%;height:200px;">@readme</textarea>
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary"><b>Submit</b></button>
-    </div>
+    <textarea id="github-url" name="github_url" font-size="18px" type="text"
+           placeholder="Enter a github link . ex : https://github.com/raychenon/play-table-of-contents"
+           style="width:65%;height:10px;">@githubUrl</textarea>
+
+    <br>
+    <label for="readme-txt">Content of your README.md below</label>
+    <br>
+    <textarea id="readme-txt" name="description" type="text" placeholder="copy paste your README.md"
+              style="width:65%;height:200px;">@readme</textarea>
+
 </form>
+
+<button type="submit" form="form-group" class="btn btn-primary"><b>Submit</b></button>
 
 <!--http://stackoverflow.com/questions/14154671/is-it-possible-to-prettify-scala-templates-using-play-framework-2-->
 @if(!contentTable.isEmpty){
