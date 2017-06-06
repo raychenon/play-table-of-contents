@@ -30,23 +30,21 @@
 <label>Nothing is perfect, you can <a href="https://github.com/raychenon/play-table-of-contents/issues">report an issue.</a></label>
 <br />
 <br />
-<form action="/github" method="POST">
-    <button type="submit" class="form-github"><b>Retrieve from your github</b></button>
-    <input id="github-url" name="github_url" class="form-github" font-size="18px" type="text" class="form-control"
-        placeholder="Enter a github link . ex : https://github.com/raychenon/play-table-of-contents"
-        text="Submit form"
-        style="width:60%;height:10px;"/>
-</form>
 
 <form action="/" method="POST">
     <div class="form-group">
+        <textarea id="github-url" name="github_url" font-size="18px" type="text" class="form-control"
+               placeholder="Enter a github link . ex : https://github.com/raychenon/play-table-of-contents"
+               style="width:65%;height:10px;">@githubUrl</textarea>
+
+        <br>
         <label for="readme-txt">Content of your README.md below</label>
         <br>
         <textarea id="readme-txt" name="description" type="text" class="form-control" placeholder="copy paste your README.md"
-                  style="width:80%;height:200px;">@readme</textarea>
+                  style="width:65%;height:200px;">@readme</textarea>
     </div>
     <div class="form-group">
-        <input type="submit" class="btn btn-primary" />
+        <button type="submit" class="btn btn-primary"><b>Submit</b></button>
     </div>
 </form>
 

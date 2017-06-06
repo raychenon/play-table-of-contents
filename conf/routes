@@ -1,5 +1,4 @@
 GET     /                           controllers.TableOfContentController.readme
 POST    /                           controllers.TableOfContentController.redirectContentTable
-POST    /github                     controllers.TableOfContentController.readFromGithub
 
 GET     /readme                     controllers.TableOfContentController.readme

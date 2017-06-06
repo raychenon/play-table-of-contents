@@ -19,12 +19,7 @@ class TableOfContentController  extends Controller{
 
   val userForm = Form(
     mapping(
-      "description" -> nonEmptyText
-    )(ReadmeForm.apply)(ReadmeForm.unapply)
-  )
-
-  val githubForm = Form(
-    mapping(
+      "description" -> nonEmptyText,
       "github_url" -> nonEmptyText
     )(ReadmeForm.apply)(ReadmeForm.unapply)
   )
@@ -39,15 +34,11 @@ class TableOfContentController  extends Controller{
     Ok(views.html.readme(startContent))
   }
 
-  def readFromGithub = Action { implicit request =>
-    val form: ReadmeForm = githubForm.bindFromRequest.get
-    val desc = readGithubLink(form.content)
-    Ok(views.html.readme(desc, form.content,TableOfContentHelper.convert(desc)))
-  }
-
   def redirectContentTable = Action { implicit request =>
     val form: ReadmeForm = userForm.bindFromRequest.get
-    Ok(views.html.readme(form.content,"", TableOfContentHelper.convert(form.content)))
+    val contentFromGithub = readGithubLink(form.githubUrl)
+    val description = if (contentFromGithub.isEmpty) form.content else contentFromGithub
+    Ok(views.html.readme(description,form.githubUrl, TableOfContentHelper.convert(description)))
   }
 
   /**
