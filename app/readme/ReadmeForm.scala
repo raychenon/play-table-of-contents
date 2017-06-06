@@ -1,3 +1,3 @@
 package readme
 
-case class ReadmeForm(description: String)
+case class ReadmeForm(content: String)

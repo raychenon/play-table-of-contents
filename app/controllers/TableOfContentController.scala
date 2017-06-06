@@ -23,6 +23,12 @@ class TableOfContentController  extends Controller{
     )(ReadmeForm.apply)(ReadmeForm.unapply)
   )
 
+  val githubForm = Form(
+    mapping(
+      "github_url" -> nonEmptyText
+    )(ReadmeForm.apply)(ReadmeForm.unapply)
+  )
+
   val startContent: String =
     """Example :
 # Title 1
@@ -33,10 +39,15 @@ class TableOfContentController  extends Controller{
     Ok(views.html.readme(startContent))
   }
 
+  def readFromGithub = Action { implicit request =>
+    val form: ReadmeForm = githubForm.bindFromRequest.get
+    val desc = readGithubLink(form.content)
+    Ok(views.html.readme(desc, form.content,TableOfContentHelper.convert(desc)))
+  }
+
   def redirectContentTable = Action { implicit request =>
     val form: ReadmeForm = userForm.bindFromRequest.get
-    val desc = readGithubLink(form.description)
-    Ok(views.html.readme(desc, TableOfContentHelper.convert(desc)))
+    Ok(views.html.readme(form.content,"", TableOfContentHelper.convert(form.content)))
   }
 
   /**
@@ -48,16 +59,9 @@ class TableOfContentController  extends Controller{
     */
   def readGithubLink(url: String): String = {
     if (url.startsWith("https://github.com")) {
-      // @todo must be asynchronous
+      // @todo blocking, but should be asynchronous
       val maybeContent = getUrlContent(getGithubReadmeUrl(url))
-      Await.result(maybeContent, 1.second)
-
-//      maybeContent onComplete {
-//        case Success(content) => content
-//        case Failure(t) =>
-//          logger.error("failure in readGithubLink ", t)
-//          ""
-//      }
+      Await.result(maybeContent, 2.second)
     }else{
       ""
     }

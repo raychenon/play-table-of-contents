@@ -1,4 +1,4 @@
-@(readme: String = "", contentTable: Seq[String] =  Seq[String]())
+@(readme: String = "", githubUrl: String = "",contentTable: Seq[String] =  Seq[String]())
 
 <!doctype html>
 
@@ -30,13 +30,16 @@
 <label>Nothing is perfect, you can <a href="https://github.com/raychenon/play-table-of-contents/issues">report an issue.</a></label>
 <br />
 <br />
-<button type="button"><b>Retrieve from your github</b></button>
-<input id="github-url" name="description" font-size="18px" type="text" class="form-control" placeholder="Enter a github link . ex : https://github.com/raychenon/play-table-of-contents"
-       style="width:60%;height:10px;"/>
+<form action="/github" method="POST">
+    <button type="submit" class="form-github"><b>Retrieve from your github</b></button>
+    <input id="github-url" name="github_url" class="form-github" font-size="18px" type="text" class="form-control" placeholder="Enter a github link . ex : https://github.com/raychenon/play-table-of-contents"
+   style="width:60%;height:10px;">@githubUrl</input>
+</form>
 
 <form action="/" method="POST">
     <div class="form-group">
         <label for="readme-txt">Content of your README.md below</label>
+        <br>
         <textarea id="readme-txt" name="description" type="text" class="form-control" placeholder="copy paste your README.md"
                   style="width:80%;height:200px;">@readme</textarea>
     </div>
