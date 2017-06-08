@@ -5,7 +5,9 @@
 
 # Introduction
 There are plenty of markdown table of contents generators, but the installation of the dependencies
- is required. Lot of overhead for an occasional activity, that's how the idea of this web app was born. 
+ is a lot of overhead for an occasional activity.
+ 
+That's how the idea of this web app was born. In addition, it is a nice tutorial for me :smile:
  
 # Online Generation
 You don't need to install anything.

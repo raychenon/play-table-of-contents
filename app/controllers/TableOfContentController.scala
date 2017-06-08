@@ -3,7 +3,8 @@ package controllers
 import play.api.data.Form
 import play.api.mvc.{Action, Controller}
 import play.api.data.Forms._
-import readme.{TableOfContentHelper, ReadmeForm}
+import readme.{ReadmeForm, TableOfContentHelper}
+import util.HtmlUtil
 
 class TableOfContentController  extends Controller{
 
@@ -20,12 +21,12 @@ class TableOfContentController  extends Controller{
 ### Title 3"""
 
   def readme = Action {
-    Ok(views.html.readme(startContent))
+    Ok(HtmlUtil.prettify(views.html.readme(startContent)))
   }
 
   def redirectContentTable = Action { implicit request =>
     val form: ReadmeForm = userForm.bindFromRequest.get
-    Ok(views.html.readme(form.description, TableOfContentHelper.convert(form.description)))
+    Ok(HtmlUtil.prettify(views.html.readme(form.description, TableOfContentHelper.convert(form.description))))
   }
 
 }
