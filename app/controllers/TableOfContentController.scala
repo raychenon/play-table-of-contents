@@ -15,9 +15,9 @@ class TableOfContentController  extends Controller{
 
   val startContent: String =
     """Example :
-# Title 1
-## Title 2
-### Title 3"""
+    # Title 1
+    ## Title 2
+    ### Title 3"""
 
   def readme = Action {
     Ok(views.html.readme(startContent))
