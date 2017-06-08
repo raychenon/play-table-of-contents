@@ -7,6 +7,7 @@ import play.api.data.Form
 import play.api.mvc.{Action, Controller}
 import play.api.data.Forms._
 import readme.{ReadmeForm, TableOfContentHelper}
+import util.HtmlUtil
 
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
