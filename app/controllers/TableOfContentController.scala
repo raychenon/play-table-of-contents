@@ -26,7 +26,7 @@ class TableOfContentController  extends Controller{
 
   def redirectContentTable = Action { implicit request =>
     val form: ReadmeForm = userForm.bindFromRequest.get
-    Ok(views.html.readme(form.description, TableOfContentHelper.convert(form.description)))
+    Ok(HtmlUtil.prettify(views.html.readme(form.description, TableOfContentHelper.convert(form.description))))
   }
 
 }
