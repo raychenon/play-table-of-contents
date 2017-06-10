@@ -1,4 +1,4 @@
-@(readme: String = "", contentTable: Seq[String] =  Seq[String]())
+@(readme: String = "", githubUrl: String = "",contentTable: Seq[String] =  Seq[String]())
 
 <!doctype html>
 
@@ -14,6 +14,13 @@
         padding: 0;
         margin: 0;
     }
+    button {
+        font-size: 14px;
+    }
+    #github-url {
+        font-size: 12px;
+        resize: none;
+    }
     </style>
 </head>
 
@@ -27,16 +34,23 @@
 <label>Nothing is perfect, you can <a href="https://github.com/raychenon/play-table-of-contents/issues">report an issue.</a></label>
 <br />
 <br />
-<form action="/" method="POST">
-    <label for="readme-txt">Copy paste your README.md below</label>
-    <div class="form-group">
-        <textarea id="readme-txt" name="description" type="text" class="form-control" placeholder="copy paste your README.md"
-                  style="width:80%;height:200px;">@readme</textarea>
-    </div>
-    <div class="form-group">
-        <input type="submit" class="btn btn-primary" />
-    </div>
+
+<form action="/" method="POST" id="form-group">
+    <label for="github-url"><b>Enter either your github repo link or the content of README.md. Then click on Submit</b></label>
+    <br>
+    <textarea id="github-url" name="github_url" font-size="18px" type="text"
+           placeholder="Enter a github link . ex : https://github.com/raychenon/play-table-of-contents"
+           style="width:65%;height:12px;">@githubUrl</textarea>
+
+    <br>
+    <label for="readme-txt">Content of your README.md below</label>
+    <br>
+    <textarea id="readme-txt" name="description" type="text" placeholder="copy paste your README.md"
+              style="width:65%;height:200px;">@readme</textarea>
+
 </form>
+
+<button type="submit" form="form-group" class="btn btn-primary"><b>Submit</b></button>
 
 <!--http://stackoverflow.com/questions/14154671/is-it-possible-to-prettify-scala-templates-using-play-framework-2-->
 @if(!contentTable.isEmpty){
