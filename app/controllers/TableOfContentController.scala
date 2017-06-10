@@ -27,19 +27,19 @@ class TableOfContentController  extends Controller{
 
   val startContent: String =
     """Example :
-    # Title 1
-    ## Title 2
-    ### Title 3"""
+# Title 1
+## Title 2
+### Title 3"""
 
   def readme = Action {
-    Ok(views.html.readme(startContent))
+    Ok(HtmlUtil.prettify(views.html.readme(startContent)))
   }
 
   def redirectContentTable = Action { implicit request =>
     val form: ReadmeForm = userForm.bindFromRequest.get
     val contentFromGithub = readGithubLink(form.githubUrl)
     val description = if (contentFromGithub.isEmpty) form.content else contentFromGithub
-    Ok(views.html.readme(description,form.githubUrl, TableOfContentHelper.convert(description)))
+    Ok(HtmlUtil.prettify(views.html.readme(description,form.githubUrl, TableOfContentHelper.convert(description))))
   }
 
   /**
