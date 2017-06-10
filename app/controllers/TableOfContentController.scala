@@ -52,8 +52,8 @@ class TableOfContentController  extends Controller{
   def readGithubLink(url: String): String = {
     if (url.startsWith("https://github.com")) {
       // @todo blocking, but should be asynchronous
-      val maybeContent = getUrlContent(getGithubReadmeUrl(url))
-      Await.result(maybeContent, 2.second)
+      val maybeContent = readContentFromUrl(getGithubReadmeUrl(url))
+      Await.result(maybeContent, 5.second)
     }else{
       ""
     }
@@ -61,12 +61,14 @@ class TableOfContentController  extends Controller{
 
   def getGithubReadmeUrl(url: String): String = {
     val githubUrl = new URL(url)
-    val path = githubUrl.getPath
-    "https://raw.githubusercontent.com" + path + "/master/README.md"
+    val path = githubUrl.getPath.substring(1)
+    val endIndex = path.indexOf("/",path.indexOf("/") + 1)
+    val userNproject = if(endIndex == -1) path else path.substring(0,endIndex)
+    s"https://raw.githubusercontent.com/${userNproject}/master/README.md"
   }
 
-  def getUrlContent(readmeUrl: String): Future[String] = Future {
-    val f = scala.io.Source.fromURL(readmeUrl)
+  def readContentFromUrl(mdUrl: String): Future[String] = Future {
+    val f = scala.io.Source.fromURL(mdUrl)
     try f.mkString finally f.close()
   }
 
