@@ -13,6 +13,7 @@ import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
 import scala.util.{Failure, Success}
 import scala.concurrent.ExecutionContext.Implicits.global
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
 class TableOfContentController  extends Controller{
 
@@ -35,11 +36,12 @@ class TableOfContentController  extends Controller{
     Ok(HtmlUtil.prettify(views.html.readme(startContent)))
   }
 
-  def redirectContentTable = Action { implicit request =>
+  def redirectContentTable = Action.async { implicit request =>
     val form: ReadmeForm = userForm.bindFromRequest.get
-    val contentFromGithub = readGithubLink(form.githubUrl)
-    val description = if (contentFromGithub.isEmpty) form.content else contentFromGithub
-    Ok(HtmlUtil.prettify(views.html.readme(description,form.githubUrl, TableOfContentHelper.convert(description))))
+    readGithubLink(form.githubUrl).map(contentFromGithub => {
+      val description = if (contentFromGithub.isEmpty) form.content else contentFromGithub
+      Ok(HtmlUtil.prettify(views.html.readme(description, form.githubUrl, TableOfContentHelper.convert(description))))
+    })
   }
 
   /**
@@ -49,16 +51,19 @@ class TableOfContentController  extends Controller{
     * @param url
     * @return either the input or the content of github's README
     */
-  def readGithubLink(url: String): String = {
+  def readGithubLink(url: String): Future[String] = {
     if (url.startsWith("https://github.com")) {
-      // @todo blocking, but should be asynchronous
-      val maybeContent = readContentFromUrl(getGithubReadmeUrl(url))
-      Await.result(maybeContent, 5.second)
+      readContentFromUrl(getGithubReadmeUrl(url))
     }else{
-      ""
+      Future("")
     }
   }
 
+  /**
+    *
+    * @param url ex : https://github.com/raychenon/play-table-of-contents
+    * @return  https://raw.githubusercontent.com/raychenon/play-table-of-contents/master/README.md
+    */
   def getGithubReadmeUrl(url: String): String = {
     val githubUrl = new URL(url)
     val path = githubUrl.getPath.substring(1)
