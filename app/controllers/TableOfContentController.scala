@@ -9,10 +9,7 @@ import play.api.data.Forms._
 import readme.{ReadmeForm, TableOfContentHelper}
 import util.HtmlUtil
 
-import scala.concurrent.duration._
-import scala.concurrent.{Await, Future}
-import scala.util.{Failure, Success}
-import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.{Future}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
 class TableOfContentController  extends Controller{
