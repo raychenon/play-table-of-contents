@@ -1,3 +1,5 @@
+![Build Status - Master](https://travis-ci.org/raychenon/play-table-of-contents.svg?branch=master)
+
 **[Table of contents generated using this app](https://tableofcontents.herokuapp.com)**
 
 - [Introduction](#introduction)
