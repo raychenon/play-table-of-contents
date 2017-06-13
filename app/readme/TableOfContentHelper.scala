@@ -4,7 +4,8 @@ import util.TextUtil
 
 object TableOfContentHelper {
 
-  val prefix = "#"
+  val PREFIX = "#"
+  val SPACE: String = "&nbsp;&nbsp;"
 
   def convert(readme: String): Seq[String] = {
     val lines: Seq[LineIndex] = tableOfContent(readme)
@@ -18,7 +19,7 @@ object TableOfContentHelper {
   private def tableOfContent(readme: String): Seq[LineIndex] = {
 
     val lines = readme.split("\n")
-    val topics = lines.map(_.stripMargin).filter(x => x.startsWith(prefix))
+    val topics = lines.map(_.stripMargin).filter(x => x.startsWith(PREFIX))
 
     for (line <- topics) yield (getLindex(line))
   }
@@ -30,13 +31,11 @@ object TableOfContentHelper {
     LineIndex(count, title)
   }
 
-  val SPACE: String = "&nbsp;&nbsp;"
-
   // non-breakable space
   private def generateTableOfContent(list: Seq[LineIndex]): Seq[String] = {
     val min = list.reduceLeft(minIndentation).indentation
     for (line <- list) yield (
-      s"""${repeatChar(SPACE, line.indentation - min)} ${line.title}""")
+      s"""${repeatChar(SPACE, line.indentation - min)}${line.title}""")
   }
 
   private def repeatChar(char: String, n: Int): String = (for (i <- 1 to n) yield char).mkString
