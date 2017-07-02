@@ -61,11 +61,11 @@ text.mkString("\n")
 }
 
 @if(!contentTable.isEmpty){
-    <h3>[Table of contents generated using this app]<a href=".">(https://tableofcontents.herokuapp.com)</a></h3>
-
-    <textarea id="toc" name="description" type="text" data-clipboard-text="copy paste your README.md" style="width:65%;height:200px;">
+<br>
+<textarea id="toc" name="description" type="text" data-clipboard-text=@concatenateTOC(contentTable) style="width:65%;height:200px;">
+<h3>[Table of contents generated using this app]<a href=".">(https://tableofcontents.herokuapp.com)</a></h3>
 @concatenateTOC(contentTable)
-    </textarea>
+</textarea>
 }
 
 

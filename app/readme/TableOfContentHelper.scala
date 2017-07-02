@@ -5,7 +5,7 @@ import util.TextUtil
 object TableOfContentHelper {
 
   val PREFIX = "#"
-  val SPACE: String = "&nbsp;&nbsp;"
+  val SPACE: String = "  "
 
   def convert(readme: String): Seq[String] = {
     val lines: Seq[LineIndex] = tableOfContent(readme)
