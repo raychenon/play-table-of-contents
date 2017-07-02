@@ -20,11 +20,3 @@ lazy val root = (project in file("."))
     name := """play-table-of-contents""",
     scalaSource in GatlingTest := baseDirectory.value / "/gatling/simulation"
   )
-
-// Documentation for this project:
-//    sbt "project docs" "~ paradox"
-//    open docs/target/paradox/site/index.html
-lazy val docs = (project in file("docs")).enablePlugins(ParadoxPlugin).
-  settings(
-    paradoxProperties += ("download_url" -> "https://tableofcontents.herokuapp.com")
-  )
