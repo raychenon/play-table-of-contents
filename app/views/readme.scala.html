@@ -63,7 +63,7 @@ text.mkString("\n")
 
 @if(!contentTable.isEmpty){
 <br>
-<textarea id="toc" class="pre code" type="text" data-clipboard-text="must put variable here" style="width:65%;height:200px;">
+<textarea id="toc" class="pre code" type="text" data-clipboard-text="@concatenateTOC(contentTable)" style="width:65%;height:200px;">
 <h3>[Table of contents generated using this app]<a href=".">(https://tableofcontents.herokuapp.com)</a></h3>
 @concatenateTOC(contentTable)                                                           "
 </textarea>
