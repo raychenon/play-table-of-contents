@@ -30,6 +30,7 @@ label {
 }
 
 .form-text {
+    background-color: #FFFF00"
     color: black;
     font-family: verdana;
     font-size: 13px;
@@ -50,4 +51,18 @@ ul {
 button {
     font-family: verdana;
     font-size: 15px;
+}
+
+/* link states  */
+a:link {
+    color: Coral;
+}
+a:visited {
+    color: BlueViolet;
+}
+a:hover {
+    color: hotpink;
+}
+a:active {
+    color: green;
 }
