@@ -1,5 +1,6 @@
 package readme
 
+import models.{LineIndex, TOCResult}
 import util.TextUtil
 
 object TableOfContentHelper {

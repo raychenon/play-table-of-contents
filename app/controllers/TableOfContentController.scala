@@ -2,14 +2,15 @@ package controllers
 
 import java.net.URL
 
+import models.ReadmeForm
 import play.api.Logger
 import play.api.data.Form
 import play.api.mvc.{Action, Controller}
 import play.api.data.Forms._
-import readme.{ReadmeForm, TableOfContentHelper}
+import readme.TableOfContentHelper
 import util.HtmlUtil
 
-import scala.concurrent.{Future}
+import scala.concurrent.Future
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
 class TableOfContentController  extends Controller{
