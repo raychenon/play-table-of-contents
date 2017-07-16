@@ -2,14 +2,15 @@ package controllers
 
 import java.net.URL
 
+import models.ReadmeForm
 import play.api.Logger
 import play.api.data.Form
 import play.api.mvc.{Action, Controller}
 import play.api.data.Forms._
-import readme.{ReadmeForm, TableOfContentHelper}
+import readme.TableOfContentHelper
 import util.HtmlUtil
 
-import scala.concurrent.{Future}
+import scala.concurrent.Future
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
 class TableOfContentController  extends Controller{
@@ -37,7 +38,7 @@ class TableOfContentController  extends Controller{
     val form: ReadmeForm = userForm.bindFromRequest.get
     readGithubLink(form.githubUrl).map(contentFromGithub => {
       val description = if (contentFromGithub.isEmpty) form.content else contentFromGithub
-      Ok(HtmlUtil.prettify(views.html.readme(description, form.githubUrl, TableOfContentHelper.convert(description))))
+      Ok(HtmlUtil.prettify(views.html.readme(description, form.githubUrl, TableOfContentHelper.convert(description).fullText)))
     })
   }
 

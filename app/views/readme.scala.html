@@ -1,4 +1,4 @@
-@(readme: String = "", githubUrl: String = "",contentTable: Seq[String] =  Seq[String]())
+@(readme: String = "", githubUrl: String = "",contentTable: String = "")
 
 <!doctype html>
 
@@ -9,30 +9,12 @@
     <meta name="keywords" content="github,table of content,readme.md">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="http://tableofcontent.eu" />
-    <style>
-    ul {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-    }
-    button {
-        font-size: 14px;
-    }
-    #github-url {
-        font-size: 12px;
-        resize: none;
-    }
-    </style>
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-97111338-2', 'auto');
-      ga('send', 'pageview');
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.at("/public/stylesheets","readme.css")">
 
-    </script>
+    <!-- Include library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+
 </head>
 
 <body>
@@ -47,31 +29,42 @@
 <br />
 
 <form action="/" method="POST" id="form-group">
-    <label for="github-url"><b>Enter either your github repo link or the content of README.md. Then click on Submit</b></label>
+    <label for="github-url">Enter either your <b>github repo link or the content</b> of README.md. Then click on Submit</label>
     <br>
-    <textarea id="github-url" name="github_url" font-size="18px" type="text"
-           placeholder="Enter a github link . ex : https://github.com/raychenon/play-table-of-contents"
-           style="width:65%;height:12px;">@githubUrl</textarea>
+    <textarea id="github-url" class="github-url-text" name="github_url" font-size="18px" type="text"
+           placeholder="Enter a github link . ex : https://github.com/raychenon/play-table-of-contents">@githubUrl</textarea>
 
     <br>
     <label for="readme-txt">Content of your README.md below</label>
     <br>
-    <textarea id="readme-txt" name="description" type="text" placeholder="copy paste your README.md"
-              style="width:65%;height:200px;">@readme</textarea>
+    <textarea id="readme-txt" name="description" type="text" class="form-text" placeholder="copy paste your README.md">@readme</textarea>
 
 </form>
-
+<br>
 <button type="submit" form="form-group" class="btn btn-primary"><b>Submit</b></button>
 
-<!--http://stackoverflow.com/questions/14154671/is-it-possible-to-prettify-scala-templates-using-play-framework-2-->
-@if(!contentTable.isEmpty){
-    <h3>[Table of contents generated using this app]<a href=".">(https://tableofcontents.herokuapp.com)</a></h3>
+
+
+@if(contentTable != "" ){
+<br>
+<h3>Et voilà</h3>
+<textarea id="toc" class="form-text" type="text" data-clipboard-text="@contentTable">
+@contentTable
+</textarea>
 }
-<ul>
-    @for(line <- contentTable) {
-    <li>@Html(line)</li>
-    }
-</ul>
+
+
+<!-- Instantiate clipboard by passing a HTML element -->
+<script>
+    var btn = document.getElementById('toc');
+    var clipboard = new Clipboard(btn);
+    clipboard.on('success', function(e) {
+        console.log(e);
+    });
+    clipboard.on('error', function(e) {
+        console.log(e);
+    });
+    </script>
 
 </body>
 </html>

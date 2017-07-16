@@ -1,0 +1,68 @@
+body {
+    padding-top: 15px;
+    background-color: #fbfcfe;
+}
+
+h1, h2{
+    color:#1BC1A1;
+}
+
+h3{
+    color:#1BC1A1;
+    margin-top: 9px;
+    margin-bottom: 2px;
+}
+
+
+label {
+    color: black;
+    font-family: verdana;
+    font-size: 15px;
+}
+
+.github-url-text{
+    color: black;
+    font-family: verdana;
+    font-size: 13px;
+    width:98%;
+    height:15px;
+    resize: none;
+}
+
+.form-text {
+    background-color: #FFFF00"
+    color: black;
+    font-family: verdana;
+    font-size: 13px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width:98%;
+    height:50%;
+    min-height:120px;
+    float:left;
+}
+
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+button {
+    font-family: verdana;
+    font-size: 15px;
+}
+
+/* link states  */
+a:link {
+    color: Coral;
+}
+a:visited {
+    color: BlueViolet;
+}
+a:hover {
+    color: hotpink;
+}
+a:active {
+    color: green;
+}
