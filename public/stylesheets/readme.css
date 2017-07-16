@@ -1,5 +1,5 @@
 body {
-    padding-top: 60px;
+    padding-top: 25px;
     background-color: #fbfcfe;
 }
 
@@ -13,6 +13,28 @@ label {
     font-size: 15px;
 }
 
+.github-url-text{
+    color: black;
+    font-family: verdana;
+    font-size: 13px;
+    width:98%;
+    height:15px;
+    resize: none;
+}
+
+.form-text {
+    color: black;
+    font-family: verdana;
+    font-size: 13px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width:98%;
+    height:50%;
+    min-height:120px;
+    float:left;
+}
+
+
 ul {
     list-style-type: none;
     padding: 0;
@@ -21,8 +43,4 @@ ul {
 button {
     font-family: verdana;
     font-size: 15px;
-}
-#github-url {
-    font-size: 12px;
-    resize: none;
 }

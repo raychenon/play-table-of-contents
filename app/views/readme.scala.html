@@ -34,25 +34,23 @@
 <form action="/" method="POST" id="form-group">
     <label for="github-url"><b>Enter either your github repo link or the content of README.md. Then click on Submit</b></label>
     <br>
-    <textarea id="github-url" name="github_url" font-size="18px" type="text"
-           placeholder="Enter a github link . ex : https://github.com/raychenon/play-table-of-contents"
-           style="width:65%;height:12px;">@githubUrl</textarea>
+    <textarea id="github-url" class="github-url-text" name="github_url" font-size="18px" type="text"
+           placeholder="Enter a github link . ex : https://github.com/raychenon/play-table-of-contents">@githubUrl</textarea>
 
     <br>
     <label for="readme-txt">Content of your README.md below</label>
     <br>
-    <textarea id="readme-txt" name="description" type="text" placeholder="copy paste your README.md"
-              style="width:65%;height:200px;">@readme</textarea>
+    <textarea id="readme-txt" name="description" type="text" class="form-text" placeholder="copy paste your README.md">@readme</textarea>
 
 </form>
-
+<br>
 <button type="submit" form="form-group" class="btn btn-primary"><b>Submit</b></button>
 
 
 
 @if(contentTable != "" ){
 <br>
-<textarea id="toc" class="pre code" type="text" data-clipboard-text="@contentTable" style="width:65%;height:200px;">
+<textarea id="toc" class="form-text" type="text" data-clipboard-text="@contentTable">
 @contentTable
 </textarea>
 }
