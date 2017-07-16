@@ -37,7 +37,7 @@ class TableOfContentController  extends Controller{
     val form: ReadmeForm = userForm.bindFromRequest.get
     readGithubLink(form.githubUrl).map(contentFromGithub => {
       val description = if (contentFromGithub.isEmpty) form.content else contentFromGithub
-      Ok(HtmlUtil.prettify(views.html.readme(description, form.githubUrl, TableOfContentHelper.convert(description))))
+      Ok(HtmlUtil.prettify(views.html.readme(description, form.githubUrl, TableOfContentHelper.convert(description).fullText)))
     })
   }
 
