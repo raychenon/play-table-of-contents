@@ -13,7 +13,7 @@ object TableOfContentHelper {
   def convert(readme: String): TOCResult = {
 
     def concatenateTOC(text: Seq[String]) = {
-      text.mkString("\n")
+      (COMMENT +: text).mkString("\n")
     }
 
     val lines: Seq[LineIndex] = tableOfContent(readme)
