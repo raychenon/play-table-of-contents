@@ -1,0 +1,28 @@
+body {
+    padding-top: 60px;
+    background-color: #fbfcfe;
+}
+
+h1, h2, h3, h4{
+    color:#1BC1A1;
+}
+
+label {
+    color: black;
+    font-family: verdana;
+    font-size: 15px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+button {
+    font-family: verdana;
+    font-size: 15px;
+}
+#github-url {
+    font-size: 12px;
+    resize: none;
+}
