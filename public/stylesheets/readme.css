@@ -1,11 +1,18 @@
 body {
-    padding-top: 25px;
+    padding-top: 15px;
     background-color: #fbfcfe;
 }
 
-h1, h2, h3, h4{
+h1, h2{
     color:#1BC1A1;
 }
+
+h3{
+    color:#1BC1A1;
+    margin-top: 9px;
+    margin-bottom: 2px;
+}
+
 
 label {
     color: black;
