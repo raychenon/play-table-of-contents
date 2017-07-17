@@ -24,7 +24,7 @@ label {
     color: black;
     font-family: verdana;
     font-size: 13px;
-    width:98%;
+    width: calc(100% - 50px);
     height:15px;
     resize: none;
 }
@@ -36,7 +36,7 @@ label {
     font-size: 13px;
     margin-top: 8px;
     margin-bottom: 8px;
-    width:98%;
+    width: calc(100% - 50px);
     height:50%;
     min-height:120px;
     float:left;
