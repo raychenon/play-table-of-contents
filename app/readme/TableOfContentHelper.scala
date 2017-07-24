@@ -31,15 +31,16 @@ object TableOfContentHelper {
 
   private def tableOfContent(readme: String): Seq[LineIndex] = {
 
+    def filterInternalSeqFromDelimiter(s: Array[String], delimiter: String): Array[String] = {
+      val start = s.indexWhere(_.startsWith(delimiter))
+      val stop  = s.indexWhere(_.startsWith(delimiter), start + 1)
+      if (stop < 0) s
+      else filterInternalSeqFromDelimiter(s.patch(start, Seq(), stop-start+1), delimiter)
+    }
+
     val lines = readme.split("\n")
     // filter out anything in code annotation ```
-    val (linesWoCode: Array[String], _) =
-      lines.foldLeft((Array[String](), true)) {
-        case ((output: Array[String], include: Boolean), "```") => (output, !include)
-        case ((output: Array[String], true), next: String) => (output :+ next, true)
-        case ((output: Array[String], false), _) => (output, false)
-      }
-
+    val linesWoCode = filterInternalSeqFromDelimiter(lines,"```")
     val topics = linesWoCode.map(_.stripMargin).filter(x => x.startsWith(PREFIX))
 
     for (line <- topics) yield (getLindex(line))
