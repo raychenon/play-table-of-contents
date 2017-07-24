@@ -3,6 +3,8 @@ package readme
 import models.{LineIndex, TOCResult}
 import util.TextUtil
 
+import scala.collection.mutable.ListBuffer
+
 object TableOfContentHelper {
 
   val PREFIX = "#"
@@ -27,11 +29,18 @@ object TableOfContentHelper {
     }
   }
 
-
   private def tableOfContent(readme: String): Seq[LineIndex] = {
 
     val lines = readme.split("\n")
-    val topics = lines.map(_.stripMargin).filter(x => x.startsWith(PREFIX))
+    // filter out anything in code annotation ```
+    val (linesWoCode: Array[String], _) =
+      lines.foldLeft((Array[String](), true)) {
+        case ((output: Array[String], include: Boolean), "```") => (output, !include)
+        case ((output: Array[String], true), next: String) => (output :+ next, true)
+        case ((output: Array[String], false), _) => (output, false)
+      }
+
+    val topics = linesWoCode.map(_.stripMargin).filter(x => x.startsWith(PREFIX))
 
     for (line <- topics) yield (getLindex(line))
   }
