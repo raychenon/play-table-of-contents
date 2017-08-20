@@ -45,6 +45,12 @@
     <textarea id="github-url" class="github-url-text" name="github_url" font-size="18px" type="text"
            placeholder="Enter a github link . ex : https://github.com/raychenon/play-table-of-contents">@githubUrl</textarea>
 
+    @if(githubUrl != "" ){
+    <script>
+        var url = "@githubUrl"
+        ga('send', 'event', 'githubUrl', 'read', url);
+    </script>
+    }
     <br>
     <label for="readme-txt">Content of your README.md below</label>
     <br>
