@@ -2,7 +2,7 @@ import sbt.Keys._
 
 lazy val GatlingTest = config("gatling") extend Test
 
-scalaVersion := "2.12.3"
+scalaVersion := "2.11.11"
 
 libraryDependencies += "net.codingwell" %% "scala-guice" % "4.1.0"
 libraryDependencies += "com.googlecode.htmlcompressor" % "htmlcompressor" % "1.5.2"
