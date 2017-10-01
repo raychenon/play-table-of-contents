@@ -3,19 +3,22 @@ package controllers
 import java.net.URL
 import javax.inject.Inject
 
+import context.MyExecutionContext
 import models.ReadmeForm
 import play.api.Logger
 import play.api.data.Form
-import play.api.mvc._
 import play.api.data.Forms._
+import play.api.mvc._
 import readme.TableOfContentHelper
 import util.HtmlUtil
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
-class TableOfContentController @Inject()(cc: ControllerComponents) extends AbstractController(cc){
+class TableOfContentController @Inject()(ec: MyExecutionContext, cc: ControllerComponents) extends AbstractController(cc){
 
   val logger = Logger(this.getClass)
+
+  implicit val xc: MyExecutionContext = ec
 
   val userForm = Form(
     mapping(
