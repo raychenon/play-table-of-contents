@@ -12,7 +12,8 @@ libraryDependencies += "io.gatling" % "gatling-test-framework" % "2.2.2" % Test
 
 // The Play project itself
 lazy val root = (project in file("."))
-  .enablePlugins(Common, PlayScala, GatlingPlugin)
+  .enablePlugins(Common, PlayScala,PlayNettyServer, GatlingPlugin)
+  .disablePlugins(PlayAkkaHttpServer)
   .configs(GatlingTest)
   .settings(inConfig(GatlingTest)(Defaults.testSettings): _*)
   .settings(
