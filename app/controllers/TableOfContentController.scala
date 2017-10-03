@@ -33,6 +33,10 @@ class TableOfContentController @Inject()(ec: MyExecutionContext, cc: ControllerC
 ## Title 2
 ### Title 3"""
 
+  def thankyou = Action {
+    Ok(HtmlUtil.prettify(views.html.thankyou()))
+  }
+
   def readme = Action {
     Ok(HtmlUtil.prettify(views.html.readme(startContent)))
   }
