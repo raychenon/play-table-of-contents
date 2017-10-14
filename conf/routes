@@ -3,7 +3,6 @@ GET     /                           controllers.TableOfContentController.readme
 POST    /                           controllers.TableOfContentController.redirectContentTable
 
 GET     /readme                     controllers.TableOfContentController.readme
-GET     /thankyou                   controllers.TableOfContentController.thankyou
 
 GET     /stylesheets/*file          controllers.Assets.at(path="/public/stylesheets", file)
 GET     /images/*file               controllers.Assets.at(path="/public/images", file)
