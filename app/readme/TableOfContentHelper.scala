@@ -8,6 +8,7 @@ import scala.collection.mutable.ListBuffer
 object TableOfContentHelper {
 
   val PREFIX = "#"
+  val PREFIX_C = '#'
   val SPACE: String = "  "
   val BRACKET_COMMENT = "```"
 
@@ -47,11 +48,23 @@ object TableOfContentHelper {
   }
 
   private def getLindex(line: String): LineIndex = {
-    val count = line.count(_ == '#')
+    val count = countConsecutiveChar(line,PREFIX_C)
     val text = line.substring(count, line.length).trim
     val title = s"- [$text](#${TextUtil.slugify(text)})"
     LineIndex(count, title)
   }
+
+  
+  def countConsecutiveChar(phrase: String, char: Char): Int = {
+    var count: Int = 0
+    var i: Int = phrase.indexOf(char.toString)
+    while(phrase.charAt(i) == char){
+      count = count + 1
+      i = i + 1
+    }
+    count
+  }
+
 
   // non-breakable space
   private def generateTableOfContent(list: Seq[LineIndex]): Seq[String] = {
