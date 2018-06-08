@@ -2,7 +2,7 @@ import sbt.Keys._
 
 lazy val GatlingTest = config("gatling") extend Test
 
-scalaVersion := "2.12.5"
+scalaVersion := "2.12.6"
 
 libraryDependencies += "com.googlecode.htmlcompressor" % "htmlcompressor" % "1.5.2"
 // for public assets
