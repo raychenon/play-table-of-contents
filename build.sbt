@@ -6,9 +6,9 @@ scalaVersion := "2.12.6"
 
 libraryDependencies += "com.googlecode.htmlcompressor" % "htmlcompressor" % "1.5.2"
 // for public assets
-libraryDependencies += "org.webjars" % "bootstrap" % "3.3.6"
-libraryDependencies += "io.gatling.highcharts" % "gatling-charts-highcharts" % "2.2.2" % Test
-libraryDependencies += "io.gatling" % "gatling-test-framework" % "2.2.2" % Test
+libraryDependencies += "org.webjars" % "bootstrap" % "4.1.0"
+libraryDependencies += "io.gatling.highcharts" % "gatling-charts-highcharts" % "2.3.1" % Test
+libraryDependencies += "io.gatling" % "gatling-test-framework" % "2.3.1" % Test
 
 // The Play project itself
 lazy val root = (project in file("."))
