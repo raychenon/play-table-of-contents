@@ -26,10 +26,10 @@ You don't need to install anything.
 
 ## Build
 
-At the root of the project, run the command line
+At the root of the project, run the command line and pass in parameter your username on https://hub.docker.com/
 
 ```
-$ ./build-docker-image.sh
+$ ./build-docker-image.sh <DOCKER_HUB_USERNAME>
 ```
 
 ## Run locally
@@ -43,7 +43,10 @@ $ docker images
 To run locally, use the cmd
 
 ```
-$ docker run --name <REPOSITORY_NAME> -p 9000:9000 -d <REPOSITORY_NAME>
+$ docker run --name <REPOSITORY_NAME> -p 9000:9000 -d <DOCKER_HUB_USERNAME>/<REPOSITORY_NAME>
+
+# for examples :
+$ docker run --name play-table-of-contents-1474f94 -p 9000:9000 -d raychenon/play-table-of-contents-1474f94
 ```
 where `REPOSITORY_NAME` is the last Docker image built,  something like `play-table-of-contents-a80175d`
 

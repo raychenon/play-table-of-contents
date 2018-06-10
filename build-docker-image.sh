@@ -6,6 +6,7 @@ function parse_git_hash() {
 
 APP_NAME="play-table-of-contents"                               # Name of the app
 VERSION=$(parse_git_hash)                                       # App version
+USERNAME=$1                                                     # Docker Hub username
 
 sbt playUpdateSecret dist                                       # Update app secret and build Play app
 
@@ -18,4 +19,4 @@ rm -rf ./tmp                                                    # Remove temp di
 cd ../..                                                        # Go back to application root
 
 
-docker build -t ${APP_NAME}-${VERSION} .                        # Build docker image
+docker build -t ${USERNAME}/${APP_NAME}-${VERSION} .            # Build docker image
