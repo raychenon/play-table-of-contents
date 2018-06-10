@@ -19,4 +19,4 @@ rm -rf ./tmp                                                    # Remove temp di
 cd ../..                                                        # Go back to application root
 
 
-docker build -t ${USERNAME}/${APP_NAME}-${VERSION} .            # Build docker image
+docker build -t ${USERNAME}/${APP_NAME}:${VERSION} .            # Build docker image
