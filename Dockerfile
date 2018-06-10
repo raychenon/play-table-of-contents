@@ -11,4 +11,4 @@ COPY ./target/universal/dist /app
 EXPOSE 8080
 
 # run /app/bin/my-app executable in port 8080
-CMD bash /app/bin/app -Dhttp.port=8080
+CMD bash /app/bin/toc -Dhttp.port=8080
