@@ -1,8 +1,13 @@
 #!/bin/bash
 
-APP_NAME="toc"                                                  # Name of the app
+function parse_git_hash() {
+  git rev-parse --short HEAD
+}
+
+APP_NAME="play-table-of-contents"                               # Name of the app
 VERSION=$(parse_git_hash)                                       # App version
-USERNAME=$1                                                     # Docker Hub username
+
+sbt playUpdateSecret dist                                       # Update app secret and build Play app
 
 cd ./target/universal                                           # Go to directory where application zip is located
 rm -rf ./tmp ./dist                                             # Deleted existing directories if those exist
@@ -12,9 +17,5 @@ mv ./tmp/${APP_NAME}* ./dist                                    # Move applicati
 rm -rf ./tmp                                                    # Remove temp directory
 cd ../..                                                        # Go back to application root
 
-docker build -t ${USERNAME}/${APP_NAME}:${VERSION} .            # Build docker image
 
-
-function parse_git_hash() {
-  git rev-parse --short HEAD 2> /dev/null | sed "s/\(.*\)/@\1/"
-}
+docker build -t ${APP_NAME}-${VERSION} .                        # Build docker image

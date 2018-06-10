@@ -5,7 +5,7 @@ FROM openjdk:8-jdk-alpine
 RUN apk add --update bash
 
 # copy target/universal/dist directory to /app directory in your image
-COPY ./target/universal/dist /app
+COPY ./target/universal/play-table-of-contents-1.0-SNAPSHOT.zip /app
 
 # make port 8080 visible
 EXPOSE 8080
