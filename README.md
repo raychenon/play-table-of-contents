@@ -50,10 +50,10 @@ $ docker run --name play-table-of-contents-1474f94 -p 9000:9000 -d raychenon/pla
 ```
 where `REPOSITORY_NAME` is the last Docker image built,  something like `play-table-of-contents-a80175d`
 
-It will run on "http://localhost:9000"
+The application will run on "http://localhost:9000".
 
-To stop from running
+To stop every Docker processes from running
 
 ```
-$ docker stop <REPOSITORY_NAME>
+$ docker stop $(docker ps -a -q)
 ```
