@@ -7,8 +7,8 @@ RUN apk add --update bash
 # copy target/universal/dist directory to /app directory in your image
 COPY ./target/universal/play-table-of-contents-1.0-SNAPSHOT.zip /app
 
-# make port 8080 visible
-EXPOSE 8080
+# make port 9000 visible
+EXPOSE 9000
 
-# run /app/bin/my-app executable in port 8080
-CMD bash /app/bin/toc -Dhttp.port=8080
+# run /app/bin/my-app executable in port 9000
+CMD bash /dist/bin/play-table-of-contents -Dhttp.port=9000
