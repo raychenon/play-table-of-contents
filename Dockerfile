@@ -1,17 +1,14 @@
-FROM openjdk:8
+# image is based on OpenJDK image version 8-jdk-alpine
+FROM openjdk:8-jdk-alpine
 
-ENV SBT_VERSION 0.13.15
+# install and update bash
+RUN apk add --update bash
 
-RUN \
-  curl -L -o sbt-$SBT_VERSION.deb http://dl.bintray.com/sbt/debian/sbt-$SBT_VERSION.deb && \
-  dpkg -i sbt-$SBT_VERSION.deb && \
-  rm sbt-$SBT_VERSION.deb && \
-  apt-get update && \
-  apt-get install sbt && \
-  sbt sbtVersion
+# copy target/universal/dist directory to /app directory in your image
+COPY ./target/universal/dist /app
 
-WORKDIR /toc
+# make port 8080 visible
+EXPOSE 8080
 
-COPY . /toc
-
-CMD sbt run
+# run /app/bin/my-app executable in port 8080
+CMD bash /app/bin/app -Dhttp.port=8080
