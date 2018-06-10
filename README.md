@@ -39,21 +39,24 @@ See the last Docker image build
 $ docker images
 ```
 
-
 To run locally, use the cmd
 
 ```
-$ docker run --name <REPOSITORY_NAME> -p 9000:9000 -d <DOCKER_HUB_USERNAME>/<REPOSITORY_NAME>
+$ docker run --name <CONTAINER_NAME> -p 9000:9000 -d <IMAGE_ID>
 
 # for examples :
-$ docker run --name play-table-of-contents-1474f94 -p 9000:9000 -d raychenon/play-table-of-contents-1474f94
+$ docker run --name container -p 9000:9000 -d e2a451cb675f
 ```
-where `REPOSITORY_NAME` is the last Docker image built,  something like `play-table-of-contents-a80175d`
 
 The application will run on "http://localhost:9000".
 
-To stop every Docker processes from running
+To stop every Docker processes from running . 
 
 ```
 $ docker stop $(docker ps -a -q)
+```
+
+Then once the containers stop running, you can delete the containers.
+```
+$ docker rm $(docker container ps -a -q)
 ```
