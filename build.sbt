@@ -1,25 +1,20 @@
 import sbt.Keys._
 
-lazy val GatlingTest = config("gatling") extend Test
 
 scalaVersion := "2.12.6"
 
 libraryDependencies += "com.googlecode.htmlcompressor" % "htmlcompressor" % "1.5.2"
 // for public assets
 libraryDependencies += "org.webjars" % "bootstrap" % "4.1.0"
-libraryDependencies += "io.gatling.highcharts" % "gatling-charts-highcharts" % "2.2.2" % Test
-libraryDependencies += "io.gatling" % "gatling-test-framework" % "2.2.2" % Test
+
 
 // The Play project itself
 lazy val root = (project in file("."))
-  .enablePlugins(Common, PlayScala,PlayNettyServer, GatlingPlugin)
+  .enablePlugins(Common, PlayScala,PlayNettyServer)
   .disablePlugins(PlayAkkaHttpServer)
-  .configs(GatlingTest)
-  .settings(inConfig(GatlingTest)(Defaults.testSettings): _*)
   .settings(
     organization := "com.raychenon",
     name := """play-table-of-contents""",
     version := "0.1.1",
-    scalaVersion := "2.12.6",
-    scalaSource in GatlingTest := baseDirectory.value / "/gatling/simulation"
+    scalaVersion := "2.12.6"
   )
