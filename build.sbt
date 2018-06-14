@@ -17,6 +17,9 @@ lazy val root = (project in file("."))
   .configs(GatlingTest)
   .settings(inConfig(GatlingTest)(Defaults.testSettings): _*)
   .settings(
+    organization := "com.raychenon",
     name := """play-table-of-contents""",
+    version := "0.1.1",
+    scalaVersion := "2.12.6",
     scalaSource in GatlingTest := baseDirectory.value / "/gatling/simulation"
   )
