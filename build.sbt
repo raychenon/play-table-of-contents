@@ -1,4 +1,11 @@
 import sbt.Keys._
+import play.sbt.routes.RoutesKeys
+RoutesKeys.routesImport := Seq.empty
+
+scalacOptions ++= Seq(
+  "-unchecked", "-deprecation", "-target:jvm-1.8", "-encoding", "utf8",
+  "-Ywarn-dead-code", "-Ywarn-unused-import", "-Ywarn-unused"
+)
 
 
 scalaVersion := "2.12.6"
