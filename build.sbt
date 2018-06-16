@@ -18,7 +18,14 @@ lazy val toc = (project in file("."))
     version := "0.1.1",
     scalaVersion := "2.12.6" ,
     scalacOptions ++= Seq(
-      "-unchecked", "-deprecation", "-target:jvm-1.8", "-encoding", "utf8",
-      "-Ywarn-dead-code", "-Ywarn-unused-import", "-Ywarn-unused"
+      "-unchecked",
+      "-deprecation",
+      "-target:jvm-1.8",
+      "-encoding",
+      "utf8",
+      "-Ywarn-dead-code",
+      "-Ywarn-unused-import",
+      "-Ywarn-unused",
+      "-Xlint:unused"
     )
   )
