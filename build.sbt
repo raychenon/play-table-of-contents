@@ -24,16 +24,16 @@ lazy val toc = (project in file("."))
     name := """play-table-of-contents""",
     version := "0.1.1",
     scalaVersion := "2.12.6" ,
-    scalacOptions ++= Seq(
-      "-unchecked",
-      "-deprecation",
-      "-target:jvm-1.8",
-      "-encoding",
-      "utf8",
-      "-Ywarn-dead-code",
-      "-Ywarn-unused-import",
-      "-Ywarn-unused",
-      "-Xlint:unused"
-    )
+    scalacOptions := {
+      val orig = scalacOptions.value
+      CrossVersion.partialVersion(scalaVersion.value) match {
+        case Some((2, 12)) => orig.map {
+          case "-Xlint"               => "-Xlint:-unused,_"
+          case "-Ywarn-unused-import" => "-Ywarn-unused:imports,-patvars,-privates,-locals,-params,-implicits"
+          case other                  => other
+        }
+        case _             => orig
+      }
+    }
   )
 
