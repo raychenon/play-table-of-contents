@@ -10,7 +10,8 @@ libraryDependencies += "org.webjars" % "bootstrap" % "4.1.0"
 
 dependencyOverrides ++= Seq(
   "com.google.code.findbugs" % "jsr305" % "3.0.2",
-  "org.apache.commons" % "commons-lang3" % "3.6"
+  "org.apache.commons" % "commons-lang3" % "3.6",
+  "com.google.guava" % "guava" % "23.0"
 )
 
 
