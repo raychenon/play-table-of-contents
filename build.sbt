@@ -12,6 +12,7 @@ libraryDependencies += "org.webjars" % "bootstrap" % "4.1.0"
 lazy val toc = (project in file("."))
   .enablePlugins(Common, PlayScala,PlayNettyServer)
   .disablePlugins(PlayAkkaHttpServer)
+  .settings(conflictManager := ConflictManager.strict)
   .settings(
     organization := "com.raychenon",
     name := """play-table-of-contents""",
