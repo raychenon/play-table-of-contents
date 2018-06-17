@@ -8,6 +8,12 @@ libraryDependencies += "com.googlecode.htmlcompressor" % "htmlcompressor" % "1.5
 // for public assets
 libraryDependencies += "org.webjars" % "bootstrap" % "4.1.0"
 
+dependencyOverrides ++= Seq(
+  "com.google.code.findbugs" % "jsr305" % "3.0.2",
+  "org.apache.commons" % "commons-lang3" % "3.6"
+)
+
+
 // The Play project itself
 lazy val toc = (project in file("."))
   .enablePlugins(Common, PlayScala,PlayNettyServer)
@@ -30,3 +36,4 @@ lazy val toc = (project in file("."))
       "-Xlint:unused"
     )
   )
+
