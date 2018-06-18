@@ -3,8 +3,6 @@ package readme
 import models.{LineIndex, TOCResult}
 import util.TextUtil
 
-import scala.collection.mutable.ListBuffer
-
 object TableOfContentHelper {
 
   val PREFIX = "#"
@@ -74,11 +72,6 @@ object TableOfContentHelper {
   }
 
   private def repeatChar(char: String, n: Int): String = (for (i <- 1 to n) yield char).mkString
-
-  private def printTableOfContent(list: Seq[LineIndex]): String = {
-    val seq = generateTableOfContent(list)
-    seq.mkString("\n")
-  }
 
   private def minIndentation(l1: LineIndex, l2: LineIndex): LineIndex = if(l1.indentation < l2.indentation) l1 else l2
 

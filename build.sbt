@@ -1,22 +1,40 @@
 import sbt.Keys._
+import play.sbt.routes.RoutesKeys
+RoutesKeys.routesImport := Seq.empty
 
-lazy val GatlingTest = config("gatling") extend Test
-
-scalaVersion := "2.11.11"
+scalaVersion := "2.12.6"
 
 libraryDependencies += "com.googlecode.htmlcompressor" % "htmlcompressor" % "1.5.2"
 // for public assets
-libraryDependencies += "org.webjars" % "bootstrap" % "3.3.6"
-libraryDependencies += "io.gatling.highcharts" % "gatling-charts-highcharts" % "2.2.2" % Test
-libraryDependencies += "io.gatling" % "gatling-test-framework" % "2.2.2" % Test
+libraryDependencies += "org.webjars" % "bootstrap" % "4.1.0"
+
+dependencyOverrides ++= Seq(
+  "com.google.code.findbugs" % "jsr305" % "3.0.2",
+  "org.apache.commons" % "commons-lang3" % "3.6",
+  "com.google.guava" % "guava" % "23.0"
+)
+
 
 // The Play project itself
-lazy val root = (project in file("."))
-  .enablePlugins(Common, PlayScala,PlayNettyServer, GatlingPlugin)
+lazy val toc = (project in file("."))
+  .enablePlugins(Common, PlayScala,PlayNettyServer)
   .disablePlugins(PlayAkkaHttpServer)
-  .configs(GatlingTest)
-  .settings(inConfig(GatlingTest)(Defaults.testSettings): _*)
+  .settings(conflictManager := ConflictManager.strict)
   .settings(
+    organization := "com.raychenon",
     name := """play-table-of-contents""",
-    scalaSource in GatlingTest := baseDirectory.value / "/gatling/simulation"
+    version := "0.1.1",
+    scalaVersion := "2.12.6" ,
+    scalacOptions := {
+      val orig = scalacOptions.value
+      CrossVersion.partialVersion(scalaVersion.value) match {
+        case Some((2, 12)) => orig.map {
+          case "-Xlint"               => "-Xlint:-unused,_"
+          case "-Ywarn-unused-import" => "-Ywarn-unused:imports,-patvars,-privates,-locals,-params,-implicits"
+          case other                  => other
+        }
+        case _             => orig
+      }
+    }
   )
+

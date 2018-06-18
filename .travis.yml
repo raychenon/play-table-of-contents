@@ -3,6 +3,6 @@ dist: trusty
 sudo: true
 group: beta
 scala:
-- 2.11.11
+- 2.12.6
 jdk:
 - oraclejdk8

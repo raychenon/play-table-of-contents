@@ -1,5 +1,3 @@
-import javax.inject.Inject
-
 import akka.actor.ActorSystem
 import com.typesafe.config.ConfigFactory
 import context.MyExecutionContext
