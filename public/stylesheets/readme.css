@@ -24,9 +24,9 @@ label {
     color: black;
     font-family: verdana;
     font-size: 13px;
-    width: calc(100% - 50px);
-    height:15px;
-    resize: none;
+    width: calc(100% - 20px);
+    height:22px;
+    resize: vertical;
 }
 
 .form-text {
@@ -36,10 +36,11 @@ label {
     font-size: 13px;
     margin-top: 8px;
     margin-bottom: 8px;
-    width: calc(100% - 50px);
+    width: calc(100% - 20px);
     height:50%;
     min-height:120px;
     float:left;
+    resize: vertical;
 }
 
 ul {
