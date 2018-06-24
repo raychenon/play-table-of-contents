@@ -23,7 +23,7 @@ label {
 .textarea {
     color: black;
     font-family: verdana;
-    font-size: 13px;
+    font-size: 14px;
     width: calc(100% - 20px);
 }
 
@@ -34,9 +34,6 @@ label {
 
 .formTextarea {
     background-color: #FFFF00"
-    color: black;
-    font-family: verdana;
-    font-size: 13px;
     margin-top: 8px;
     margin-bottom: 8px;
     width: calc(100% - 20px);
