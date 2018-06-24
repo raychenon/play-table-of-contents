@@ -11,13 +11,14 @@ libraryDependencies += "org.webjars" % "bootstrap" % "4.1.0"
 dependencyOverrides ++= Seq(
   "com.google.code.findbugs" % "jsr305" % "3.0.2",
   "org.apache.commons" % "commons-lang3" % "3.6",
-  "com.google.guava" % "guava" % "23.0"
+  "com.google.guava" % "guava" % "23.0",
+  "org.codehaus.plexus" % "plexus-utils" % "3.0.17",
+  "org.webjars" % "webjars-locator-core" % "0.33"
 )
-
 
 // The Play project itself
 lazy val toc = (project in file("."))
-  .enablePlugins(Common, PlayScala,PlayNettyServer)
+  .enablePlugins(Common, PlayScala,PlayNettyServer,SbtWeb)
   .disablePlugins(PlayAkkaHttpServer)
   .settings(conflictManager := ConflictManager.strict)
   .settings(
@@ -38,3 +39,4 @@ lazy val toc = (project in file("."))
     }
   )
 
+pipelineStages in Assets := Seq(rjs, digest, gzip)
