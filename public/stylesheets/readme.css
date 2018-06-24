@@ -4,11 +4,11 @@ body {
 }
 
 h1, h2{
-    color:#1BC1A1;
+    color:#1BBF21;
 }
 
 h3{
-    color:#1BC1A1;
+    color:#53D228;
     margin-top: 9px;
     margin-bottom: 2px;
 }
@@ -20,26 +20,27 @@ label {
     font-size: 15px;
 }
 
-.github-url-text{
+.textarea {
     color: black;
     font-family: verdana;
-    font-size: 13px;
-    width: calc(100% - 50px);
+    font-size: 14px;
+    width: calc(100% - 20px);
+}
+
+.githubUrlTextarea {
     height:15px;
     resize: none;
 }
 
-.form-text {
+.formTextarea {
     background-color: #FFFF00"
-    color: black;
-    font-family: verdana;
-    font-size: 13px;
     margin-top: 8px;
     margin-bottom: 8px;
-    width: calc(100% - 50px);
+    width: calc(100% - 20px);
     height:50%;
     min-height:120px;
     float:left;
+    resize: vertical;
 }
 
 ul {
