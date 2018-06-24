@@ -20,16 +20,19 @@ label {
     font-size: 15px;
 }
 
-.github-url-text{
+.textarea {
     color: black;
     font-family: verdana;
     font-size: 13px;
     width: calc(100% - 20px);
+}
+
+.githubUrlTextarea {
     height:15px;
     resize: none;
 }
 
-.form-text {
+.formTextarea {
     background-color: #FFFF00"
     color: black;
     font-family: verdana;
