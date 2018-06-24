@@ -6,3 +6,4 @@ GET     /readme                     controllers.TableOfContentController.readme
 
 GET     /stylesheets/*file          controllers.Assets.at(path="/public/stylesheets", file)
 GET     /images/*file               controllers.Assets.at(path="/public/images", file)
+GET     /assets/*file               controllers.Assets.at(file)
