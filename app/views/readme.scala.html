@@ -4,11 +4,13 @@
 
 <html lang="en">
 <head>
-    <title>Table of contents for github readme.md file</title>
+    <title>Table of contents for github markdown readme.md file</title>
     <meta name="description" content=">Generate the table of contents of markdown README.md file">
     <meta name="keywords" content="github,table of content,readme.md">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="http://tableofcontent.eu" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" type="text/css" href="@routes.Assets.at("/public/stylesheets","readme.css")">
 
@@ -32,13 +34,13 @@
     <label for="github-url">Enter either your <b>github repo link</b> or <b>the content of README.md</b> (only works for <b>master</b> branch for now).
         <br>Then click on Submit</label>
     <br>
-    <textarea id="github-url" class="github-url-text" name="github_url" font-size="18px" type="text"
-           placeholder="Enter a github link . ex : https://github.com/raychenon/play-table-of-contents">@githubUrl</textarea>
+    <textarea id="github-url" class="textarea githubUrlTextarea" name="github_url" font-size="18px" type="text"
+           placeholder="Ex:https://github.com/raychenon/play-table-of-contents">@githubUrl</textarea>
 
     <br>
     <label for="readme-txt">Content of your README.md below</label>
     <br>
-    <textarea id="readme-txt" name="description" type="text" class="form-text" placeholder="copy paste your README.md">@readme</textarea>
+    <textarea id="readme-txt" name="description" type="text" class="textarea formTextarea" placeholder="copy paste your README.md">@readme</textarea>
 
 </form>
 <br>
@@ -48,9 +50,9 @@
 
 @if(contentTable != "" ){
 <br>
-<h3>Et voilà</h3>
+<h3>Your table of contents generated</h3>
 
-<textarea readonly id="toc" class="form-text" type="text" data-clipboard-text="@contentTable">
+<textarea readonly id="toc" class="textarea formTextarea" type="text" data-clipboard-text="@contentTable">
 @contentTable
 </textarea>
 
