@@ -7,6 +7,7 @@ scalaVersion := "2.12.6"
 libraryDependencies += "com.googlecode.htmlcompressor" % "htmlcompressor" % "1.5.2"
 // for public assets
 libraryDependencies += "org.webjars" % "bootstrap" % "4.1.0"
+libraryDependencies += "org.webjars" % "requirejs" % "2.2.0"
 
 dependencyOverrides ++= Seq(
   "com.google.code.findbugs" % "jsr305" % "3.0.2",
@@ -40,4 +41,4 @@ lazy val toc = (project in file("."))
     }
   )
 
-pipelineStages in Assets := Seq(rjs, digest, gzip)
+pipelineStages in Assets bootstrap:= Seq(rjs, digest, gzip)
