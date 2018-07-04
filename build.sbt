@@ -41,4 +41,4 @@ lazy val toc = (project in file("."))
     }
   )
 
-pipelineStages in Assets bootstrap:= Seq(rjs, digest, gzip)
+pipelineStages := Seq(rjs, digest, gzip)
