@@ -61,3 +61,10 @@ Then once the containers stop running, you can delete the containers.
 ```
 $ docker rm $(docker container ps -a -q)
 ```
+
+## Run on AWS Lightsail
+
+The [instance is already set up](https://github.com/saaste/play-docker-aws-tutorial). Go to the console and run this command:
+```
+$ sudo docker run --name toc -p 80:9000 -d raychenon/play-table-of-contents:24d7606
+```
