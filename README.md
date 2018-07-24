@@ -44,7 +44,7 @@ $ docker images
 To run locally, use the cmd
 
 ```
-$ docker run --name <CONTAINER_NAME> -p 9000:9000 -d <IMAGE_ID>
+$ docker run --name <CONTAINER_NAME> -p <FROM_PORT>:<TO_PORT> -d <IMAGE_ID>
 
 # for examples :
 $ docker run --name container -p 9000:9000 -d e2a451cb675f
