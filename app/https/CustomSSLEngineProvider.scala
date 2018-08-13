@@ -1,7 +1,6 @@
 package https
 
 import javax.net.ssl._
-
 import play.core.ApplicationProvider
 import play.server.api._
 import play.core.server._
