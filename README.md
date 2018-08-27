@@ -20,7 +20,7 @@ In addition, it is a nice tutorial on Scala :smile:
  
 # Online Generation
 You don't need to install anything.
-<br>1 Go to http://tableofcontent.eu/
+<br>1 Go to tableofcontent.eu
 <br>2 Copy paste your markdown content or your github repo link and click "submit"
 "
 
