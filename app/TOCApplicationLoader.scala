@@ -22,5 +22,7 @@ class TOCComponents(ec: MyExecutionContext, context: ApplicationLoader.Context)
 
   lazy val tableOfContentController = new _root_.controllers.TableOfContentController(ec,controllerComponents)
 
-  lazy val router: Router = new _root_.router.Routes(httpErrorHandler, tableOfContentController, assets)
+  lazy val blockchainController = new _root_.blockchain.controllers.BlockchainController(ec,controllerComponents)
+
+  lazy val router: Router = new _root_.router.Routes(httpErrorHandler, tableOfContentController,blockchainController, assets)
 }
