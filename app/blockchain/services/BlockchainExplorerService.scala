@@ -1,7 +1,7 @@
 package blockchain.services
 
 import blockchain.data.BlockReader
-import blockchain.json.{BalanceResponse, Transaction1, TransactionResponse}
+import blockchain.json.{BalanceResponse, TransactionResponse}
 import javax.inject.{Inject, Singleton}
 
 import scala.collection.mutable
@@ -10,6 +10,12 @@ import scala.collection.mutable.ListBuffer
 @Singleton
 class BlockchainExplorerService @Inject() (blockReader: BlockReader){
 
+  /**
+    * Improvement: if the address doesn't exist could return a null in the JSON response
+    * could return Map[String,Option[BalanceResponse]]
+    * @param address
+    * @return
+    */
   def calculateBalance(address: String): Map[String,BalanceResponse] = {
     Map(
       "type1" -> BalanceResponse(calculateBalance4BlockType1(address)),
@@ -17,6 +23,23 @@ class BlockchainExplorerService @Inject() (blockReader: BlockReader){
     )
   }
 
+
+
+  /**
+    * What happens if a transaction, the address of the sender and the receiver is the same ?
+    * ex :
+    * {
+    * sender: "Dolor",
+    * recipient: "Dolor",
+    * amount: 7,
+    * fees: 69
+    * }
+    * Here in this method in that case, the amount is not deduced from the sender and added to the recipient.
+    * The amount is only added to the recipient
+    *
+    * @param address
+    * @return
+    */
   private def calculateBalance4BlockType1(address: String): Int = {
     var accBalance: Int = 0
     for(block <- blockReader.parseBlockType1()){
