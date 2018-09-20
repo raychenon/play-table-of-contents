@@ -33,10 +33,10 @@ class BlockchainExplorerService @Inject() (blockReader: BlockReader){
   private def calculateBalance4BlockType2(address: String): Int = {
     var accBalance: Int = 0
     for(block <- blockReader.parseBlockType2()){
-      // if the address is the recipient, add amount
+      // sum the amounts received by the recipient
       accBalance = accBalance + block.transactions.filter(t => t.recipient == address)
         .map(_.recipientBalanceChange).sum
-      // if the address is the recipient, substract amount
+      // subtract the sender balance change, since the value is negative just add
       accBalance = accBalance + block.transactions.filter(t => t.sender == address)
         .foldLeft(0)(_ + _.senderbalanceChange)
     }
