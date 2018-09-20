@@ -4,6 +4,9 @@ POST    /                           controllers.TableOfContentController.redirec
 
 GET     /readme                     controllers.TableOfContentController.readme
 
+GET     /blockchain/type1              blockchain.controllers.BlockchainController.getType1
+GET     /blockchain/type2              blockchain.controllers.BlockchainController.getType2
+
 GET     /blockchain/:address/balance   blockchain.controllers.BlockchainController.getBalanceFrom(address: String)
 
 GET     /stylesheets/*file          controllers.Assets.at(path="/public/stylesheets", file)
