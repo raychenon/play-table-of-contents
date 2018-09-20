@@ -18,12 +18,12 @@ class BlockchainController @Inject()(ec: MyExecutionContext,cc: ControllerCompon
 
   def getType1() = Action {
 
-    Ok(reader.readTransactions1().toString)
+    Ok(reader.parseTransactions1().toString)
 //    Ok(Json.prettyPrint(Json.toJson(reader.readTransactions1())))
   }
 
   def getType2() = Action {
-    Ok(reader.readTransactions2().toString)
+    Ok(reader.parseTransactions2().toString)
 //    Ok(reader.readType2())
   }
   
