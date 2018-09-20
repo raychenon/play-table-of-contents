@@ -2,18 +2,24 @@ package blockchain.controllers
 
 
 import blockchain.data.BlockReader
+import blockchain.services.BlockchainExplorerService
 import javax.inject.Inject
 import context.MyExecutionContext
 import play.api.libs.json.Json
 import play.api.mvc.{AbstractController, ControllerComponents}
 
-class BlockchainController @Inject()(ec: MyExecutionContext,cc: ControllerComponents) extends AbstractController(cc){
+class BlockchainController @Inject()
+  (ec: MyExecutionContext,
+   cc: ControllerComponents,
+   service: BlockchainExplorerService)
+  extends AbstractController(cc){
 
 
   val reader = new BlockReader()
 
   def getBalanceFrom(address: String) = Action {
-    NotFound(s"Not found for $address")
+    Ok(Json.toJson(service.calculateBalance(address)))
+//    NotFound(s"Not found for $address")
   }
 
   def getType1() = Action {

@@ -1,4 +1,6 @@
 import akka.actor.ActorSystem
+import blockchain.data.BlockReader
+import blockchain.services.BlockchainExplorerService
 import com.typesafe.config.ConfigFactory
 import context.MyExecutionContext
 import play.api.routing.Router
@@ -22,7 +24,9 @@ class TOCComponents(ec: MyExecutionContext, context: ApplicationLoader.Context)
 
   lazy val tableOfContentController = new _root_.controllers.TableOfContentController(ec,controllerComponents)
 
-  lazy val blockchainController = new _root_.blockchain.controllers.BlockchainController(ec,controllerComponents)
+  lazy val blockReader = new BlockReader()
+  lazy val service = new BlockchainExplorerService(blockReader)
+  lazy val blockchainController = new _root_.blockchain.controllers.BlockchainController(ec,controllerComponents,service)
 
   lazy val router: Router = new _root_.router.Routes(httpErrorHandler, tableOfContentController,blockchainController, assets)
 }
