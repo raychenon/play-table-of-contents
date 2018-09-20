@@ -12,9 +12,10 @@ import scala.io.Source
 
 class BlockReader() {
 
-  def readTransactions1(): JsValue = {
-    val json: JsValue = Json.parse(readType1)
-    json
+  
+  def readTransactions1(): Block = {
+    val blocks = Json.parse(readType1).as[Block]
+    blocks
 //    json.validate[Seq[Block]] match{
 //      case js: JsResult[Seq[Block]] => js.get
 //      case _ =>  throw new IOException("Cannot parse type1")
