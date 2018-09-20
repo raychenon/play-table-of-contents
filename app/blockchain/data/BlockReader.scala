@@ -3,8 +3,6 @@ package blockchain.data
 import java.io.IOException
 
 import blockchain.json.{BlockchainType1, BlockchainType2}
-
-//import blockchain.json.{Block, Transaction1}
 import play.api.libs.json.{JsResult, JsValue, Json}
 
 import scala.io.Source

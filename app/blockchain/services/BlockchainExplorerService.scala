@@ -22,7 +22,7 @@ class BlockchainExplorerService @Inject() (blockReader: BlockReader){
     for(block <- blockReader.parseTransactions1()){
       // if the address is the recipient, add amount
       accBalance = accBalance + block.transactions.filter(t => t.recipient == address)
-        .foldLeft(0)(_ + _.amount)
+        .map(_.amount).sum
       // if the address is the recipient, substract amount
       accBalance = accBalance + block.transactions.filter(t => t.sender == address).foldLeft(0)(_ - _.amount)
     }
@@ -35,7 +35,7 @@ class BlockchainExplorerService @Inject() (blockReader: BlockReader){
     for(block <- blockReader.parseTransactions2()){
       // if the address is the recipient, add amount
       accBalance = accBalance + block.transactions.filter(t => t.recipient == address)
-        .foldLeft(0)(_ + _.recipientBalanceChange)
+        .map(_.recipientBalanceChange).sum
       // if the address is the recipient, substract amount
       accBalance = accBalance + block.transactions.filter(t => t.sender == address)
         .foldLeft(0)(_ + _.senderbalanceChange)
@@ -75,7 +75,7 @@ class BlockchainExplorerService @Inject() (blockReader: BlockReader){
       val transactionsContainingAddress = block.transactions.filter(t => t.recipient == address || t.sender == address)
       for(trx <- transactionsContainingAddress){
         val amount = trx.recipientBalanceChange
-        val fee = -(trx.recipientBalanceChange - trx.senderbalanceChange)
+        val fee = if(trx.senderbalanceChange == 0) 0 else -(trx.recipientBalanceChange + trx.senderbalanceChange)
         val response = TransactionResponse(trx.sender,trx.recipient, amount,fee, block.date)
         listBuffer += response
       }
