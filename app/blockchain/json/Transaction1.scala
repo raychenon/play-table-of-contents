@@ -14,7 +14,7 @@ case class Transaction1(
 
 object Transaction1{
 
-  implicit val fmt = Json.format[Transaction1]
+  implicit val transaction1Format = Json.format[Transaction1]
 
 //  val transation1Reads: Reads[Transaction1] = (
 //      (JsPath \ "sender").read[String] and
