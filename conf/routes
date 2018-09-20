@@ -7,7 +7,8 @@ GET     /readme                     controllers.TableOfContentController.readme
 GET     /blockchain/type1              blockchain.controllers.BlockchainController.getType1
 GET     /blockchain/type2              blockchain.controllers.BlockchainController.getType2
 
-GET     /blockchain/:address/balance   blockchain.controllers.BlockchainController.getBalanceFrom(address: String)
+GET     /blockchain/:address/balance        blockchain.controllers.BlockchainController.getBalanceFrom(address: String)
+GET     /blockchain/:address/transactions   blockchain.controllers.BlockchainController.getTransactionsFrom(address: String)
 
 GET     /stylesheets/*file          controllers.Assets.at(path="/public/stylesheets", file)
 GET     /images/*file               controllers.Assets.at(path="/public/images", file)

@@ -1,8 +1,11 @@
 package blockchain.services
 
 import blockchain.data.BlockReader
-import blockchain.json.BalanceResponse
+import blockchain.json.{BalanceResponse, TransactionResponse}
 import javax.inject.{Inject, Singleton}
+
+import scala.collection.mutable
+import scala.collection.mutable.ListBuffer
 
 @Singleton
 class BlockchainExplorerService @Inject() (blockReader: BlockReader){
@@ -39,5 +42,28 @@ class BlockchainExplorerService @Inject() (blockReader: BlockReader){
     }
 
     accBalance
+  }
+
+
+  def collectTransactions(address: String): Map[String,Seq[TransactionResponse]] = {
+    Map(
+      "type1" -> findTransactions4BlockType1(address),
+      "type2" -> findTransactions4BlockType1(address)
+    )
+  }
+
+  private def findTransactions4BlockType1(address: String): Seq[TransactionResponse] = {
+    val listBuffer = new ListBuffer[TransactionResponse]()
+
+    for(block <- blockReader.parseTransactions1()){
+
+      val transactionsContainingAddress = block.transactions.filter(t => t.recipient == address || t.sender == address)
+      for(trx <- transactionsContainingAddress){
+        val response = TransactionResponse(trx.sender,trx.recipient, trx.amount,trx.fees, block.date)
+        listBuffer += response
+      }
+
+    }
+    listBuffer
   }
 }

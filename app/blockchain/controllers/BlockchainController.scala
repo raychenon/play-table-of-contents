@@ -22,6 +22,12 @@ class BlockchainController @Inject()
 //    NotFound(s"Not found for $address")
   }
 
+  def getTransactionsFrom(address: String) = Action {
+    Ok(Json.toJson(service.collectTransactions(address)))
+//    NotFound(s"Not found for $address")
+  }
+
+
   def getType1() = Action {
 
     Ok(reader.parseTransactions1().toString)
