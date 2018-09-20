@@ -2,7 +2,7 @@ package blockchain.data
 
 import java.io.IOException
 
-import blockchain.json.BlockchainType1
+import blockchain.json.{BlockchainType1, BlockchainType2}
 
 //import blockchain.json.{Block, Transaction1}
 import play.api.libs.json.{JsResult, JsValue, Json}
@@ -16,7 +16,14 @@ class BlockReader() {
   def readTransactions1(): Seq[BlockchainType1] = {
     Json.parse(readType1).validate[Seq[BlockchainType1]] match{
       case js: JsResult[Seq[BlockchainType1]] => js.get
-      case _ =>  throw new IOException("Cannot parse blockchain type1")
+      case _ =>  throw new IOException("Cannot parse blockchain type 1")
+    }
+  }
+
+  def readTransactions2(): Seq[BlockchainType2] = {
+    Json.parse(readType2).validate[Seq[BlockchainType2]] match{
+      case js: JsResult[Seq[BlockchainType2]] => js.get
+      case _ =>  throw new IOException("Cannot parse blockchain type 2")
     }
   }
   
