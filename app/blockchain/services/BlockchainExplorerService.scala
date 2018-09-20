@@ -1,7 +1,7 @@
 package blockchain.services
 
 import blockchain.data.BlockReader
-import blockchain.json.{BalanceResponse, TransactionResponse}
+import blockchain.json.{BalanceResponse, Transaction1, TransactionResponse}
 import javax.inject.{Inject, Singleton}
 
 import scala.collection.mutable
@@ -19,20 +19,20 @@ class BlockchainExplorerService @Inject() (blockReader: BlockReader){
 
   private def calculateBalance4BlockType1(address: String): Int = {
     var accBalance: Int = 0
-    for(block <- blockReader.parseTransactions1()){
+    for(block <- blockReader.parseBlockType1()){
       // if the address is the recipient, add amount
       accBalance = accBalance + block.transactions.filter(t => t.recipient == address)
         .map(_.amount).sum
-      // if the address is the recipient, substract amount
-      accBalance = accBalance + block.transactions.filter(t => t.sender == address).foldLeft(0)(_ - _.amount)
+      // subtract the fee from the sender
+      accBalance = accBalance + block.transactions.filter(t => t.sender == address).foldLeft(0)(_ - _.fees)
     }
 
     accBalance
   }
-
+  
   private def calculateBalance4BlockType2(address: String): Int = {
     var accBalance: Int = 0
-    for(block <- blockReader.parseTransactions2()){
+    for(block <- blockReader.parseBlockType2()){
       // if the address is the recipient, add amount
       accBalance = accBalance + block.transactions.filter(t => t.recipient == address)
         .map(_.recipientBalanceChange).sum
@@ -55,7 +55,7 @@ class BlockchainExplorerService @Inject() (blockReader: BlockReader){
   private def findTransactions4BlockType1(address: String): Seq[TransactionResponse] = {
     val listBuffer = new ListBuffer[TransactionResponse]()
 
-    for(block <- blockReader.parseTransactions1()){
+    for(block <- blockReader.parseBlockType1()){
 
       val transactionsContainingAddress = block.transactions.filter(t => t.recipient == address || t.sender == address)
       for(trx <- transactionsContainingAddress){
@@ -70,7 +70,7 @@ class BlockchainExplorerService @Inject() (blockReader: BlockReader){
   private def findTransactions4BlockType2(address: String): Seq[TransactionResponse] = {
     val listBuffer = new ListBuffer[TransactionResponse]()
 
-    for(block <- blockReader.parseTransactions2()){
+    for(block <- blockReader.parseBlockType2()){
 
       val transactionsContainingAddress = block.transactions.filter(t => t.recipient == address || t.sender == address)
       for(trx <- transactionsContainingAddress){

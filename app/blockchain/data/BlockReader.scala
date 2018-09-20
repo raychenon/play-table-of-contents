@@ -11,14 +11,14 @@ import scala.io.Source
 class BlockReader() {
 
   
-  def parseTransactions1(): Seq[BlockchainType1] = {
+  def parseBlockType1(): Seq[BlockchainType1] = {
     Json.parse(readType1).validate[Seq[BlockchainType1]] match{
       case js: JsResult[Seq[BlockchainType1]] => js.get
       case _ =>  throw new IOException("Cannot parse blockchain type 1")
     }
   }
 
-  def parseTransactions2(): Seq[BlockchainType2] = {
+  def parseBlockType2(): Seq[BlockchainType2] = {
     Json.parse(readType2).validate[Seq[BlockchainType2]] match{
       case js: JsResult[Seq[BlockchainType2]] => js.get
       case _ =>  throw new IOException("Cannot parse blockchain type 2")
