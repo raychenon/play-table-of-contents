@@ -48,7 +48,7 @@ class BlockchainExplorerService @Inject() (blockReader: BlockReader){
   def collectTransactions(address: String): Map[String,Seq[TransactionResponse]] = {
     Map(
       "type1" -> findTransactions4BlockType1(address),
-      "type2" -> findTransactions4BlockType1(address)
+      "type2" -> findTransactions4BlockType2(address)
     )
   }
 
@@ -60,6 +60,23 @@ class BlockchainExplorerService @Inject() (blockReader: BlockReader){
       val transactionsContainingAddress = block.transactions.filter(t => t.recipient == address || t.sender == address)
       for(trx <- transactionsContainingAddress){
         val response = TransactionResponse(trx.sender,trx.recipient, trx.amount,trx.fees, block.date)
+        listBuffer += response
+      }
+
+    }
+    listBuffer
+  }
+
+  private def findTransactions4BlockType2(address: String): Seq[TransactionResponse] = {
+    val listBuffer = new ListBuffer[TransactionResponse]()
+
+    for(block <- blockReader.parseTransactions2()){
+
+      val transactionsContainingAddress = block.transactions.filter(t => t.recipient == address || t.sender == address)
+      for(trx <- transactionsContainingAddress){
+        val amount = trx.recipientBalanceChange
+        val fee = -(trx.recipientBalanceChange - trx.senderbalanceChange)
+        val response = TransactionResponse(trx.sender,trx.recipient, amount,fee, block.date)
         listBuffer += response
       }
 
