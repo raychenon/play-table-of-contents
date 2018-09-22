@@ -100,7 +100,7 @@ class BlockchainExplorerService @Inject() (blockReader: BlockReader){
         val amount = trx.recipientBalanceChange
         // there is no fee for the genesis block ,
         // senderbalanceChange is always negative, substract from it equals to add a positive number
-        val fee = if(trx.senderbalanceChange == 0) 0 else -(trx.senderbalanceChange + trx.recipientBalanceChange)
+        val fee = if(trx.senderbalanceChange == 0) 0 else (Math.abs(trx.senderbalanceChange) - trx.recipientBalanceChange)
         val response = TransactionResponse(trx.sender,trx.recipient, amount,fee, block.date)
         listBuffer += response
       }
