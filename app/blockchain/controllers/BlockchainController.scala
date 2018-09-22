@@ -11,11 +11,11 @@ import play.api.mvc.{AbstractController, ControllerComponents}
 class BlockchainController @Inject()
   (ec: MyExecutionContext,
    cc: ControllerComponents,
-   service: BlockchainExplorerService)
+   service: BlockchainExplorerService,
+   reader: BlockReader)
   extends AbstractController(cc){
 
 
-  val reader = new BlockReader()
 
   def getBalanceFrom(address: String) = Action {
     Ok(Json.toJson(service.calculateBalance(address)))

@@ -3,12 +3,13 @@ package blockchain.data
 import java.io.IOException
 
 import blockchain.json.{BlockchainType1, BlockchainType2}
+import play.api.Configuration
 import play.api.libs.json.{JsResult, JsValue, Json}
 
 import scala.io.Source
 
 
-class BlockReader() {
+class BlockReader(config: Configuration) {
 
   
   def parseBlockType1(): Seq[BlockchainType1] = {
@@ -26,11 +27,11 @@ class BlockReader() {
   }
   
   def readType1(): String = {
-    read("public/assets/json/blockchain_type_1_with_1000_blocks.json")
+    read(config.get[String]("blockchain.type1"))
   }
 
   def readType2(): String = {
-    read("public/assets/json/blockchain_type_2_with_1000_blocks.json")
+    read(config.get[String]("blockchain.type2"))
   }
 
   private def read(source: String): String = {
