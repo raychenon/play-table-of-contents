@@ -29,13 +29,10 @@ class BlockchainController @Inject()
 
 
   def getType1() = Action {
-
-//    Ok(reader.parseTransactions1().toString)
     Ok(reader.readType1())
   }
 
   def getType2() = Action {
-//    Ok(reader.parseTransactions2().toString)
     Ok(reader.readType2())
   }
   

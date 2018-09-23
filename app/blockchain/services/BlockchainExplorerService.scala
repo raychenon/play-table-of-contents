@@ -57,12 +57,19 @@ class BlockchainExplorerService @Inject() (blockReader: BlockReader){
   private def calculateBalance4BlockType2(blocks: Seq[BlockchainType2],address: String): Int = {
     var accBalance: Int = 0
     for(block <- blocks){
-      // sum the amounts received by the recipient
-      accBalance = accBalance + block.transactions.filter(t => t.recipient == address)
-        .map(_.recipientBalanceChange).sum
-      // subtract the sender balance change, since the value is negative just add
-      accBalance = accBalance + block.transactions.filter(t => t.sender == address)
-        .foldLeft(0)(_ + _.senderbalanceChange)
+      for(trx <- block.transactions){
+        // cannot use filter like in type1, you have to go 1 by 1
+        // because when sender and receiver are the same, the change was counted double with filter & sum method
+        if(trx.recipient == address && trx.recipient == trx.sender) {
+          accBalance = accBalance + trx.recipientBalanceChange
+          // sum the amounts received by the recipient
+        }else if( trx.recipient == address ){
+          accBalance = accBalance + trx.recipientBalanceChange
+          // subtract the sender balance change, since the value is negative just add
+        } else if( trx.sender == address ){
+          accBalance = accBalance + trx.senderbalanceChange
+        }
+      }
     }
 
     accBalance
