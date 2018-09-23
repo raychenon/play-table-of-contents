@@ -13,13 +13,29 @@ I suppose getting the endpoints response was more important
 > This can be done
 either during runtime or **ahead of execution**
 
-The JSON files are hardcoded in the application. If you want to change the source, go to ```conf/blockchain.conf``` and change the path
+The JSON files are hardcoded in the application. If you want to change the source, go to ```conf/blockchain.conf``` and change the path.
+
+I took an existing project of mine because :
+- a new github project name blockchain-explorer will be easier to find on Google rather in branch of an existing project
+- it was easier to deploy on an existing base
 
 # How to run
 
 This project is built with Play! framework in Scala.
 Go the root of the project and launch the command
 > sbt run
+
+# Endpoints
+
+I added two new endpoints to check the data source for 
+- GET /blockchain/type1 will return the JSON inside blockchain_type_1_with_1000_blocks.json by default
+- GET /blockchain/type2
+
+The format of the two endpoints is as defined in the test.
+GET /blockchain/:address:/balance
+GET /blockchain/:address:/transactions
+
+In order to separate the two types of cryptocurrency , the response is wrapped in a JSON dictionary 
 
 # Things I'd do if I had more time
 
@@ -55,3 +71,7 @@ For ex :
 }
 ```
 Does it mean the amount is zero and everything went to the transaction fee ?
+
+## REST API documentation
+
+The REST API documentation could be done with [Swagger 2](https://swagger.io/docs/specification/2-0/basic-structure/)
