@@ -1,7 +1,7 @@
 package blockchain.services
 
 import blockchain.data.BlockReader
-import blockchain.json.{BalanceResponse, TransactionResponse}
+import blockchain.json.{BalanceResponse, Transaction2, TransactionResponse}
 import javax.inject.{Inject, Singleton}
 
 import scala.collection.mutable
@@ -97,15 +97,23 @@ class BlockchainExplorerService @Inject() (blockReader: BlockReader){
 
       val transactionsContainingAddress = block.transactions.filter(t => t.recipient == address || t.sender == address)
       for(trx <- transactionsContainingAddress){
-        val amount = trx.recipientBalanceChange
-        // there is no fee for the genesis block ,
-        // senderbalanceChange is always negative, substract from it equals to add a positive number
-        val fee = if(trx.senderbalanceChange == 0) 0 else (Math.abs(trx.senderbalanceChange) - trx.recipientBalanceChange)
+        val amount =  if (trx.sender == trx.recipient) 0 else trx.recipientBalanceChange
+        val fee = calculateFeeType2(trx)
         val response = TransactionResponse(trx.sender,trx.recipient, amount,fee, block.date)
         listBuffer += response
       }
 
     }
     listBuffer
+  }
+
+  private def calculateFeeType2(trx: Transaction2): Int ={
+    // there is no fee for the genesis block
+    if(trx.senderbalanceChange == 0) 0
+    else {
+      // senderbalanceChange is always negative, substract from it equals to add a positive number
+      if (trx.sender == trx.recipient) -trx.senderbalanceChange
+      else (Math.abs(trx.senderbalanceChange) - trx.recipientBalanceChange)
+    }
   }
 }
