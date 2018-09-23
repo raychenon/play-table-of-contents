@@ -1,7 +1,7 @@
 package blockchain.services
 
 import blockchain.data.BlockReader
-import blockchain.json.{BalanceResponse, Transaction2, TransactionResponse}
+import blockchain.json._
 import javax.inject.{Inject, Singleton}
 
 import scala.collection.mutable
@@ -11,15 +11,15 @@ import scala.collection.mutable.ListBuffer
 class BlockchainExplorerService @Inject() (blockReader: BlockReader){
 
   /**
-    * Improvement: if the address doesn't exist could return a null in the JSON response
+    * Improvement: if the address doesn't exist could return a null in the JSON response instead of 0 in the balance
     * could return Map[String,Option[BalanceResponse]]
     * @param address
     * @return
     */
   def calculateBalance(address: String): Map[String,BalanceResponse] = {
     Map(
-      "type1" -> BalanceResponse(calculateBalance4BlockType1(address)),
-      "type2" -> BalanceResponse(calculateBalance4BlockType2(address))
+      "type1" -> BalanceResponse(calculateBalance4BlockType1(blockReader.parseBlockType1(),address)),
+      "type2" -> BalanceResponse(calculateBalance4BlockType2(blockReader.parseBlockType2(),address))
     )
   }
 
@@ -37,12 +37,13 @@ class BlockchainExplorerService @Inject() (blockReader: BlockReader){
     * Here in this method in that case, the amount is not deduced from the sender and added to the recipient.
     * The amount is only added to the recipient
     *
+    * @param blocks
     * @param address
     * @return
     */
-  private def calculateBalance4BlockType1(address: String): Int = {
+  private def calculateBalance4BlockType1(blocks: Seq[BlockchainType1],address: String): Int = {
     var accBalance: Int = 0
-    for(block <- blockReader.parseBlockType1()){
+    for(block <- blocks){
       // if the address is the recipient, add amount
       accBalance = accBalance + block.transactions.filter(t => t.recipient == address)
         .map(_.amount).sum
@@ -53,9 +54,9 @@ class BlockchainExplorerService @Inject() (blockReader: BlockReader){
     accBalance
   }
   
-  private def calculateBalance4BlockType2(address: String): Int = {
+  private def calculateBalance4BlockType2(blocks: Seq[BlockchainType2],address: String): Int = {
     var accBalance: Int = 0
-    for(block <- blockReader.parseBlockType2()){
+    for(block <- blocks){
       // sum the amounts received by the recipient
       accBalance = accBalance + block.transactions.filter(t => t.recipient == address)
         .map(_.recipientBalanceChange).sum
@@ -70,15 +71,15 @@ class BlockchainExplorerService @Inject() (blockReader: BlockReader){
 
   def collectTransactions(address: String): Map[String,Seq[TransactionResponse]] = {
     Map(
-      "type1" -> findTransactions4BlockType1(address),
-      "type2" -> findTransactions4BlockType2(address)
+      "type1" -> findTransactions4BlockType1(blockReader.parseBlockType1(),address),
+      "type2" -> findTransactions4BlockType2(blockReader.parseBlockType2(),address)
     )
   }
 
-  private def findTransactions4BlockType1(address: String): Seq[TransactionResponse] = {
+  private def findTransactions4BlockType1(blocks: Seq[BlockchainType1],address: String): Seq[TransactionResponse] = {
     val listBuffer = new ListBuffer[TransactionResponse]()
 
-    for(block <- blockReader.parseBlockType1()){
+    for(block <- blocks){
 
       val transactionsContainingAddress = block.transactions.filter(t => t.recipient == address || t.sender == address)
       for(trx <- transactionsContainingAddress){
@@ -90,10 +91,10 @@ class BlockchainExplorerService @Inject() (blockReader: BlockReader){
     listBuffer
   }
 
-  private def findTransactions4BlockType2(address: String): Seq[TransactionResponse] = {
+  private def findTransactions4BlockType2(blocks: Seq[BlockchainType2],address: String): Seq[TransactionResponse] = {
     val listBuffer = new ListBuffer[TransactionResponse]()
 
-    for(block <- blockReader.parseBlockType2()){
+    for(block <- blocks){
 
       val transactionsContainingAddress = block.transactions.filter(t => t.recipient == address || t.sender == address)
       for(trx <- transactionsContainingAddress){
