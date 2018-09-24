@@ -15,9 +15,12 @@
   - [REST API documentation](#rest-api-documentation)
   
 # About the coding challenge
+
+I authored and passed several coding challenge, here are some of my personal hints.
+
 > Develop this solution with the language/frameworks of your choosing.
 
-It is quite broad, I suggest to start with scaffold project and let the candidate implement the rest. Especially when you hire for a specific role on Scala, Java.
+It is quite broad, I suggest to put a scaffold project on github and the candidate will implement the rest and submit a pull request. Especially when you hire for a specific role on Scala, Java or Python.
 
 When I saw the JSON files contain the **same date** for every block, I thought I shall not spend more time than the author(s) of this challenge.
 
@@ -36,7 +39,7 @@ The JSON files are hardcoded in the application. If you want to change the sourc
 
 **All the insteresting code is in the package ```blockchain```**. I took an existing project of mine because :
 - a new github project name blockchain-explorer will be easier to find on Google rather in branch of an existing project
-- it was easier to deploy on an existing base
+- it was easier to deploy on an [existing base](tableofcontent.eu/)
 
 # How to run
 
@@ -73,8 +76,8 @@ I'd use a Factory Pattern depending the blockchain type to calculate the balance
 ## Persistence
 As the number of blocks increases, storing in a persistent database is critical.
 A SQL database is a choice. The table structure will be :
-- 1 table for balance, saving the latest balance for an address
-- 1 table for transactions on the format of blockchain type 1, with an extra column for the blockchain type. The recipient and sender columns will be indexed for fast search.  
+- 1 table for `balance`, saving the latest balance for an address
+- 1 table for `transactions` based on the format of blockchain type 1, with an extra column for the blockchain type. The recipient and sender columns will be indexed for fast search.  
 
 Since the transactions are time related, a Time Series Database could be a good alternative.
 
