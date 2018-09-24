@@ -1,29 +1,38 @@
 ![Build Status - Master](https://travis-ci.org/raychenon/play-table-of-contents.svg?branch=master)
 
+# About the coding challenge
+> Develop this solution with the language/frameworks of your choosing.
+
+It is quite broad, I suggest to start with scaffold project and let the candidate implement the rest. Especially when you hire for a specific role on Scala, Java.
+
+When I saw the JSON files contain the **same date** for every block, I thought I shall not spend more time than the author(s) of this challenge.
 
 # Considerations
 
-First, I considered `the two types of blockchain as different currencies. 
-The responses in the REST endpoints separate between **type1** and **type2** 
+First, I considered the two types of blockchain as different currencies. 
+The responses in the REST endpoints are separated between **type1** and **type2** 
 
 Second, for simplification to do everything in 3 hours time (excluding the pauses), there is no persistence layer to avoid infrastructure set-up.
 I suppose getting the endpoints response was more important
 
 > The blockchain explorer must be able to import new blockchain files.
-> This can be done
-either during runtime or **ahead of execution**
+> This can be done either during runtime or **ahead of execution**
 
-The JSON files are hardcoded in the application. If you want to change the source, go to ```conf/blockchain.conf``` and change the path.
+The JSON files are hardcoded in the application. If you want to change the source, go to ```conf/blockchain.conf``` and change the path. By default, the data source are the 1000 blocks files.
 
-I took an existing project of mine because :
+**All the insteresting code is in the package ```blockchain```**. I took an existing project of mine because :
 - a new github project name blockchain-explorer will be easier to find on Google rather in branch of an existing project
 - it was easier to deploy on an existing base
 
 # How to run
 
 This project is built with Play! framework in Scala.
-Go the root of the project and launch the command
+Go the root folder of the project and launch the command line
 > sbt run
+
+A hosted online version is available :
+- https://tableofcontents.herokuapp.com/blockchain/Dolor/transactions
+- https://tableofcontents.herokuapp.com/blockchain/Dolor/balance
 
 # Endpoints
 
