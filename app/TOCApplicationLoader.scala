@@ -1,8 +1,10 @@
 import akka.actor.ActorSystem
 import com.typesafe.config.ConfigFactory
 import context.MyExecutionContext
+import controllers.TableOfContentController
 import play.api.routing.Router
 import play.api.{Application, ApplicationLoader, BuiltInComponentsFromContext}
+import com.softwaremill.macwire._
 
 class TOCApplicationLoader extends ApplicationLoader{
 
@@ -20,7 +22,7 @@ class TOCComponents(ec: MyExecutionContext, context: ApplicationLoader.Context)
   with play.filters.HttpFiltersComponents
   with _root_.controllers.AssetsComponents{
 
-  lazy val tableOfContentController = new _root_.controllers.TableOfContentController(ec,controllerComponents)
+  lazy val tableOfContentController = wire[TableOfContentController]
 
   lazy val router: Router = new _root_.router.Routes(httpErrorHandler, tableOfContentController, assets)
 }

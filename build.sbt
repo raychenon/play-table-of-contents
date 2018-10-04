@@ -4,6 +4,7 @@ RoutesKeys.routesImport := Seq.empty
 
 scalaVersion := "2.12.6"
 
+libraryDependencies += "com.softwaremill.macwire" %% "macros" % "2.3.0" % "provided"
 libraryDependencies += "com.googlecode.htmlcompressor" % "htmlcompressor" % "1.5.2"
 // for public assets
 libraryDependencies += "org.webjars" % "bootstrap" % "4.1.0"
