@@ -63,7 +63,7 @@ class TableOfContentController @Inject()(ec: MyExecutionContext, cc: ControllerC
     * @param url
     * @return either the input or the content of github's README
     */
-  def readGithubLink(url: String): Future[String] = {
+  private def readGithubLink(url: String): Future[String] = {
     if (url.startsWith("https://github.com")) {
       readContentFromUrl(getGithubReadmeUrl(url))
     }else{
@@ -76,7 +76,7 @@ class TableOfContentController @Inject()(ec: MyExecutionContext, cc: ControllerC
     * @param url ex : https://github.com/raychenon/play-table-of-contents
     * @return  https://raw.githubusercontent.com/raychenon/play-table-of-contents/master/README.md
     */
-  def getGithubReadmeUrl(url: String): String = {
+  private def getGithubReadmeUrl(url: String): String = {
     val githubUrl = new URL(url)
     val path = githubUrl.getPath.substring(1)
     val endIndex = path.indexOf("/",path.indexOf("/") + 1)
@@ -84,7 +84,7 @@ class TableOfContentController @Inject()(ec: MyExecutionContext, cc: ControllerC
     s"https://raw.githubusercontent.com/${userNproject}/master/README.md"
   }
 
-  def readContentFromUrl(mdUrl: String): Future[String] = Future {
+  private def readContentFromUrl(mdUrl: String): Future[String] = Future {
     val f = scala.io.Source.fromURL(mdUrl)
     try f.mkString finally f.close()
   }
