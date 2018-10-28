@@ -29,9 +29,9 @@ class TableOfContentController @Inject()(ec: MyExecutionContext, cc: ControllerC
 
   val startContent: String =
     """Example :
-    # Title 1
-    ## Title 2
-    ### Title 3"""
+    |# Title 1
+    |## Title 2
+    |### Title 3""".stripMargin('|')
 
 
   def readme = Action {
