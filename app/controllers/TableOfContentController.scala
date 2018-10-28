@@ -29,15 +29,25 @@ class TableOfContentController @Inject()(ec: MyExecutionContext, cc: ControllerC
 
   val startContent: String =
     """Example :
-# Title 1
-## Title 2
-### Title 3"""
+    |# Title 1
+    |## Title 2
+    |### Title 3""".stripMargin('|')
 
 
   def readme = Action {
     Ok(HtmlUtil.prettify(views.html.readme(startContent)))
   }
 
+  /**
+    * The content of README.md is already in the textarea.
+    * This method redirects to the Home page with the generated table of contents.
+    * The previous content in the "textarea" are passed as parameters in the View.
+    * The parameters passed to the View are :
+    * - the content of README.md
+    * - table of contents
+    * - github URL if applicable
+    * @return to Home page
+    */
   def redirectContentTable = Action.async { implicit request =>
     val form: ReadmeForm = userForm.bindFromRequest.get
     readGithubLink(form.githubUrl).map(contentFromGithub => {
@@ -53,7 +63,7 @@ class TableOfContentController @Inject()(ec: MyExecutionContext, cc: ControllerC
     * @param url
     * @return either the input or the content of github's README
     */
-  def readGithubLink(url: String): Future[String] = {
+  private def readGithubLink(url: String): Future[String] = {
     if (url.startsWith("https://github.com")) {
       readContentFromUrl(getGithubReadmeUrl(url))
     }else{
@@ -66,7 +76,7 @@ class TableOfContentController @Inject()(ec: MyExecutionContext, cc: ControllerC
     * @param url ex : https://github.com/raychenon/play-table-of-contents
     * @return  https://raw.githubusercontent.com/raychenon/play-table-of-contents/master/README.md
     */
-  def getGithubReadmeUrl(url: String): String = {
+  private def getGithubReadmeUrl(url: String): String = {
     val githubUrl = new URL(url)
     val path = githubUrl.getPath.substring(1)
     val endIndex = path.indexOf("/",path.indexOf("/") + 1)
@@ -74,7 +84,7 @@ class TableOfContentController @Inject()(ec: MyExecutionContext, cc: ControllerC
     s"https://raw.githubusercontent.com/${userNproject}/master/README.md"
   }
 
-  def readContentFromUrl(mdUrl: String): Future[String] = Future {
+  private def readContentFromUrl(mdUrl: String): Future[String] = Future {
     val f = scala.io.Source.fromURL(mdUrl)
     try f.mkString finally f.close()
   }
