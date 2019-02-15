@@ -7,4 +7,4 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-gzip" % "1.0.2")
 
 // Scala formatting: "sbt scalafmt"
 // https://olafurpg.github.io/scalafmt
-//addSbtPlugin("com.geirsson" % "sbt-scalafmt" % "1.6.0-RC3")
+addSbtPlugin("com.geirsson" % "sbt-scalafmt" % "1.5.1")
