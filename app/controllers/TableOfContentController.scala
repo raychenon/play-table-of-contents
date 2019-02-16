@@ -14,7 +14,8 @@ import util.HtmlUtil
 
 import scala.concurrent.Future
 
-class TableOfContentController @Inject()(ec: MyExecutionContext, cc: ControllerComponents) extends AbstractController(cc){
+class TableOfContentController @Inject()(ec: MyExecutionContext, cc: ControllerComponents)
+    extends AbstractController(cc) {
 
   val logger = Logger(this.getClass)
 
@@ -23,7 +24,7 @@ class TableOfContentController @Inject()(ec: MyExecutionContext, cc: ControllerC
   val userForm = Form(
     mapping(
       "description" -> text,
-      "github_url" -> text
+      "github_url"  -> text
     )(ReadmeForm.apply)(ReadmeForm.unapply)
   )
 
@@ -32,7 +33,6 @@ class TableOfContentController @Inject()(ec: MyExecutionContext, cc: ControllerC
     |# Title 1
     |## Title 2
     |### Title 3""".stripMargin('|')
-
 
   def readme = Action {
     Ok(HtmlUtil.prettify(views.html.readme(startContent)))
@@ -52,7 +52,12 @@ class TableOfContentController @Inject()(ec: MyExecutionContext, cc: ControllerC
     val form: ReadmeForm = userForm.bindFromRequest.get
     readGithubLink(form.githubUrl).map(contentFromGithub => {
       val description = if (contentFromGithub.isEmpty) form.content else contentFromGithub
-      Ok(HtmlUtil.prettify(views.html.readme(description, form.githubUrl, TableOfContentHelper.convert(description).fullText)))
+      Ok(
+        HtmlUtil.prettify(
+          views.html
+            .readme(description, form.githubUrl, TableOfContentHelper.convert(description).fullText)
+        )
+      )
     })
   }
 
@@ -63,13 +68,12 @@ class TableOfContentController @Inject()(ec: MyExecutionContext, cc: ControllerC
     * @param url
     * @return either the input or the content of github's README
     */
-  private def readGithubLink(url: String): Future[String] = {
+  private def readGithubLink(url: String): Future[String] =
     if (url.startsWith("https://github.com")) {
       readContentFromUrl(getGithubReadmeUrl(url))
-    }else{
+    } else {
       Future("")
     }
-  }
 
   /**
     *
@@ -77,16 +81,17 @@ class TableOfContentController @Inject()(ec: MyExecutionContext, cc: ControllerC
     * @return  https://raw.githubusercontent.com/raychenon/play-table-of-contents/master/README.md
     */
   private def getGithubReadmeUrl(url: String): String = {
-    val githubUrl = new URL(url)
-    val path = githubUrl.getPath.substring(1)
-    val endIndex = path.indexOf("/",path.indexOf("/") + 1)
-    val userNproject = if(endIndex == -1) path else path.substring(0,endIndex)
+    val githubUrl    = new URL(url)
+    val path         = githubUrl.getPath.substring(1)
+    val endIndex     = path.indexOf("/", path.indexOf("/") + 1)
+    val userNproject = if (endIndex == -1) path else path.substring(0, endIndex)
     s"https://raw.githubusercontent.com/${userNproject}/master/README.md"
   }
 
   private def readContentFromUrl(mdUrl: String): Future[String] = Future {
     val f = scala.io.Source.fromURL(mdUrl)
-    try f.mkString finally f.close()
+    try f.mkString
+    finally f.close()
   }
 
 }
