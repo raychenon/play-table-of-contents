@@ -16,15 +16,14 @@ ENV SBT_VERSION 1.2.8
 # Install Scala
 ## Piping curl directly in tar
 RUN \
-  curl -fsL https://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz | tar xfz - -C /root/ && \
+  RUN yum install -y https://downloads.lightbend.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.rpm && \
+  rm scala-$SCALA_VERSION.rpm && \
   echo >> /root/.bashrc && \
   echo "export PATH=~/scala-$SCALA_VERSION/bin:$PATH" >> /root/.bashrc
 
 # Install sbt
 RUN \
-  RUN yum install -y https://downloads.lightbend.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.rpm && \
   RUN yum install -y https://dl.bintray.com/sbt/rpm/sbt-$SBT_VERSION.rpm && \
-  rm scala-$SCALA_VERSION.rpm && \
   rm sbt-$SBT_VERSION.rpm && \
   apt-get update && \
   apt-get install sbt && \
