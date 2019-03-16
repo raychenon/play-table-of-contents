@@ -8,7 +8,6 @@ libraryDependencies += "com.softwaremill.macwire" %% "macros" % "2.3.0" % "provi
 libraryDependencies += "com.googlecode.htmlcompressor" % "htmlcompressor" % "1.5.2"
 // for public assets
 libraryDependencies += "org.webjars" % "bootstrap" % "4.1.0"
-libraryDependencies += "org.webjars" % "requirejs" % "2.2.0"
 
 dependencyOverrides ++= Seq(
   "com.google.code.findbugs" % "jsr305" % "3.0.2",
@@ -26,8 +25,8 @@ lazy val toc = (project in file("."))
   .settings(conflictManager := ConflictManager.strict)
   .settings(
     organization := "com.raychenon",
-    name := """play-table-of-contents""",
-    version := "0.1.1",
+    name := "play-table-of-contents",
+    version := "0.1.1a",
     scalaVersion := "2.12.6" ,
     scalacOptions := {
       val orig = scalacOptions.value
@@ -42,4 +41,16 @@ lazy val toc = (project in file("."))
     }
   )
 
-pipelineStages := Seq(rjs, digest, gzip)
+pipelineStages := Seq(digest, gzip)
+
+enablePlugins(JavaAppPackaging)
+
+version := "0.12.20190316"
+dockerRepository := Option("raychenon")
+organization := "raychenon"
+packageName := "play-table-of-contents"
+
+maintainer in Docker := "Raymond Chenon"
+packageSummary in Docker := "table of contents"
+packageDescription := "An online markdown table of contents generator"
+packageName in Docker := "play-table-of-contents"
