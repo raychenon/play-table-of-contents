@@ -13,7 +13,6 @@ pipelines:
           - docker
         caches:
           - sbt
-          - play
         script: # Modify the commands below to build your repository.
           # Set $DOCKER_HUB_USERNAME and $DOCKER_HUB_PASSWORD as environment variables in repository settings
           - export IMAGE_NAME=$DOCKER_HUB_USERNAME/play-table-of-contents:$BITBUCKET_COMMIT
