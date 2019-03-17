@@ -24,10 +24,6 @@ lazy val toc = (project in file("."))
   .disablePlugins(PlayAkkaHttpServer)
   .settings(conflictManager := ConflictManager.strict)
   .settings(
-    organization := "com.raychenon",
-    name := "play-table-of-contents",
-    version := "0.1.1a",
-    scalaVersion := "2.12.6" ,
     scalacOptions := {
       val orig = scalacOptions.value
       CrossVersion.partialVersion(scalaVersion.value) match {
