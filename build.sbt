@@ -45,10 +45,11 @@ pipelineStages := Seq(digest, gzip)
 
 enablePlugins(JavaAppPackaging)
 
-version := "0.12.20190316"
+version := "0.12.20190317"
 dockerRepository := Option("raychenon")
 organization := "raychenon"
 packageName := "play-table-of-contents"
+dockerUpdateLatest := true
 
 maintainer in Docker := "Raymond Chenon"
 packageSummary in Docker := "table of contents"
