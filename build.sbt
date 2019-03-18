@@ -40,8 +40,11 @@ lazy val toc = (project in file("."))
 pipelineStages := Seq(digest, gzip)
 
 enablePlugins(JavaAppPackaging)
+enablePlugins(GitVersioning)
 
-version := "0.12.20190317"
+git.formattedShaVersion := git.gitHeadCommit.value map { sha => s"v$sha" }
+
+version := s"0.12.${git.formattedShaVersion}"
 dockerRepository := Option("raychenon")
 organization := "raychenon"
 packageName := "play-table-of-contents"
