@@ -42,9 +42,9 @@ pipelineStages := Seq(digest, gzip)
 enablePlugins(JavaAppPackaging)
 enablePlugins(GitVersioning)
 
-git.formattedShaVersion := git.gitHeadCommit.value map { sha => s"v$sha" }
+val formattedShaVersion: String = git.gitHeadCommit.value.getOrElse("Error")
 
-version := s"0.12.${git.formattedShaVersion.toString()}"
+version := s"0.12.${formattedShaVersion}"
 dockerRepository := Option("raychenon")
 organization := "raychenon"
 packageName := "play-table-of-contents"
