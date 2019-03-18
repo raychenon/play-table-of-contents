@@ -44,7 +44,7 @@ enablePlugins(GitVersioning)
 
 git.formattedShaVersion := git.gitHeadCommit.value map { sha => s"v$sha" }
 
-version := s"0.12.${git.formattedShaVersion}"
+version := s"0.12.${git.formattedShaVersion.toString()}"
 dockerRepository := Option("raychenon")
 organization := "raychenon"
 packageName := "play-table-of-contents"
